@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+
+<head>
+	<title>Account</title>
+	<link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link href="{% static "css/plugins/dataTables.bootstrap.css" %}" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="{% static "css/main.css" %}" />
+	
+</head>
+
+<body>
+	<div class="loader-bkgd hidden">
+			<div class="loader"><img src="{% static "Icons/Lead Generation/ajax-loader.gif"%}"/></div>
+		</div>
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<section>
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+
+				<a class="navbar-brand" href="/lead_generation" id="logo">
+					<img src="{% static "Icons/Base/tier5_logo.png"%}" >
+				</a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="container">
+
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="/lead_management" class="navbar-brand" id="LM-wrap">
+							<img src="{% static "Icons/Base/leadManagement_tab.png"%}"  class="nav-icons">
+							<p id="LM">Lead Management</p>
+						</a>
+					</li>
+					<li>
+						<a class="navbar-brand" id="LG-wrap" href="/lead_generation">
+							<img src="{% static "Icons/Base/leadGeneration_tab.png" %}" class="nav-icons">
+							<p id="LG">Lead Generation</p>
+						</a>
+					</li>
+					<li>
+						<a class="navbar-brand" id="settings-wrap" href="/account">
+							<img src="{% static "Icons/Base/settings_tab.png" %}" class="nav-icons">
+							<p id="ss">Account</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</section>
+		<!-- /.container -->
+	</nav>
+	<div class="row">
+		<div class="col-md-1">
+		</div>
+		<!--------------------Start of profile pic and lead stats div---------------------->
+		<div class="container-fluid" id="team-member-info-card">
+
+			<div class="col-md-1" id="info-1">
+				<img src="{{current_user_permission.profile_picture.url}}" id="tm-photo" >
+			</div>
+			<div class="col-md-1" id="info-2">
+				
+				<p id="name-info"><strong>{{user.first_name}} {{user.last_name}}</strong>
+				</p>
+				<p id="last-login-info"><em>Last login: Now</em>
+				</p>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-2 leads-per-month">
+				<div class="card-top-border-info-page">
+					<div class="teamMember1-TM">
+						<span><b>Leads This Month</b></span>
+					</div>
+				</div>
+				<div class="numLeads TM-numLeads">{{leads_this_month}}</div>
+			</div>
+			<div class="col-md-2 leads-per-month">
+				<div class="card-top-border-info-page">
+					<div class="teamMember1-TM">
+						<span><b>Leads Last Month</b></span>
+					</div>
+				</div>
+				<div class="numLeads TM-numLeads">{{leads_last_month}}</div>
+			</div>
+			<div class="col-md-2 leads-per-month">
+				<div class="card-top-border-info-page">
+					<div class="teamMember1-TM">
+						<span class="all-time"><b>Leads To Date</b></span>
+					</div>
+				</div>
+				<div class="numLeads TM-numLeads">{{all_leads}}</div>
+			</div>
+		</div>
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-10" id="settings-content-base">
+			<div class="col-md-2" id="account-nav">
+				<a>
+					<div class="accountNav-links account-active" id="account-information">Account Information</div>
+				</a>
+				<a>
+					<div class="accountNav-links" id="social-links">Social Links</div>
+				</a>
+				{% if current_user_permission.is_team_leader %}
+				<a>
+					<div class="accountNav-links" id="manage-team">Manage Team</div>
+				</a>
+				{% endif %}
+				<a href="/logout">
+					<div class="accountNav-links">Log Out</div>
+				</a>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-6" id="account-content">
+				<div><strong class="account-headers">Account Information</strong>
+				</div>
+				<form method="post"> {% csrf_token %}
+					<div class="form-group">
+						<label for="EmailAddress" id="email-address">Change Email Address</label>
+						<input type="email" class="form-control" name="EmailAddress" id="EmailAddress" placeholder="{{user.email}}">
+					</div>
+					<div class="form-group">
+						<label for="Password">Change Password</label>
+						<input type="password" class="form-control" name="Password" id="Password" placeholder="********">
+					</div>
+					<button type="submit" class="btn btn-default account-info-submit">Submit</button>
+					</form>
+					<form method="post" enctype="multipart/form-data"> {% csrf_token %}
+					<div class="form-group">
+						<label for="ProfilePicture">Change Profile Picture</label>
+						<input type="file" name = "ProfilePicture" id="ProfilePicture">
+						<p class="help-block">.jpeg, .jpg, or .png files only please!</p>
+					</div>
+					<button type="submit" class="btn btn-default account-info-submit">Submit</button>
+				</form>
+			</div>
+		</div>
+		<!--End of Compiled leads-->
+	</div>
+	
+<script> 
+function populateRemove() {
+    var x = document.getElementById("delete");
+    {% for u in users_in_organization %}
+    var option = document.createElement("option");
+    option.text = "{{u}}";
+    option.id = "{{u.id}}";
+    x.add(option);
+    {% endfor %}
+}
+function populateModify() {
+    var x = document.getElementById("modify");
+    {% for u in users_in_organization %}
+    var option = document.createElement("option");
+    option.text = "{{u}}";
+    option.id = "{{u.id}}";
+    x.add(option);
+    {% endfor %}
+}
+</script>
+	<script language="JavaScript" type="text/javascript" src="{% static "js/jquery.js" %}" ></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script language="JavaScript" type="text/javascript" src="{% static "js/bootstrap.min.js" %}" ></script>
+	<!-- DataTables JavaScript -->
+	<script language="JavaScript" type="text/javascript" src="{% static "js/plugins/dataTables/jquery.dataTables.js" %}" >
+	</script>
+	<script language="JavaScript" type="text/javascript" src="{% static "js/plugins/dataTables/dataTables.bootstrap.js" %}" ></script>
+	<script language="JavaScript" type="text/javascript" src="{% static "js/account.js" %}" ></script>
+	<script>
+		$(".navbar-brand").click(function(){
+			$(".loader-bkgd").removeClass("hidden").fadeIn();
+		});
+	</script>
+</body>
+
+</html>

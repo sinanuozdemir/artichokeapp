@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en" id="html">
+
+<head>
+
+	<title>Lead Management</title>
+	<link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link type="text/css" rel="stylesheet" href="{% static "css/main.css" %}" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+
+</head>
+
+<body>
+	
+	<div class="loader-bkgd hidden">
+			<div class="loader-lm"><img src="{% static "Icons/Lead Generation/ajax-loader.gif"%}"/></div>
+		</div>
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<section>
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/lead_generation" id="logo">
+					<img src="{% static "Icons/Base/tier5_logo.png"%}">
+				</a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="container">
+
+				<ul class="nav navbar-nav navbar-right">
+					<li> 
+						<a href="/lead_management" class="navbar-brand" id="LM-wrap">
+							<img src="{% static "Icons/Base/leadManagement_tab.png" %}" class="nav-icons">
+							<p id="LM">Lead Management</p>
+						</a>
+					</li>
+					<li>
+						<a class="navbar-brand" id="LG-wrap" href="/lead_generation">
+							<img src="{% static "Icons/Base/leadGeneration_tab.png" %}" class="nav-icons">
+							<p id="LG">Lead Generation</p>
+						</a>
+					</li>
+					<li>
+						<a class="navbar-brand" id="settings-wrap" href="/account">
+							<img src="{% static "Icons/Base/settings_tab.png" %}" class="nav-icons">
+							<p id="ss">Account</p>
+						</a>
+					</li>
+				</ul>
+
+			</div>
+			<!-- /.navbar-collapse -->
+		</section>
+		<!-- /.container -->
+	</nav>
+	<div class="row">
+		<div class="col-md-1 right-buffer">
+		</div>
+		<div class="col-md-10">
+			<!--Start of Compiled Leads-->
+
+			<!-- /.panel-heading -->
+			<form method="POST"> {% csrf_token %}
+				<div class="panel-body" id="panel-id-tag">
+					<div class="table-responsive" id="table-tag">
+						<table>
+							<thead>
+								<tr>
+									<td>
+										<button type="submit" method="POST" class="btn btn-default btn-sm" name="export_selected" value="submit">Export Selected</button>
+									</td>
+
+									<td>
+										<button type="submit" method="POST" value="submit" name="export_new" class="btn btn-default btn-sm">Export New Leads</button>
+									</td>
+									<td>
+										<button type="submit" method="POST" value="delete" name="delete_selected" class="lmebutton btn btn-default btn-sm">Delete Selected</button>
+									</td>
+									<td>
+										<button type="button" class="btn btn-default btn-sm" data-container="body" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample" data-html="true" data-target="#collapseAddLead">Add Leads</button>
+
+									</td>
+								</tr>
+							</thead>
+							<div class="collapse" id="collapseAddLead">
+								<div class="well">
+									<button type="button" class="close" data-dismiss="collapse" data-toggle="collapse" data-target="#collapseAddLead" aria-label="Close"><span aria-hidden="true">&times;</span>
+									</button>
+									<form>
+										<div class="row" id="paddingLeft">
+											<div class="container" >
+												<div class="col-md-3">
+													<div class="form-group">
+
+														<input type="text" class="form-control" name="age" id="name" placeholder="Full Name">
+													</div>
+													<div class="form-group">
+														<input type="email" name="email" class="form-control" id="email" placeholder="Email">
+													</div>
+													<div class="form-group">
+														<input type="text" name="age" class="form-control" id="age" placeholder="Age">
+													</div>
+													<div class="form-group">
+														<input type="text" class="form-control" id="Job Title" placeholder="Job Title">
+													</div>
+													<input data-trigger="hover" data-toggle="popover" data-placement="top" data-content='Upload newsletter lists, Twitter Handles (include @), LinkedIn Profiles, or even emails and Legion Analytics will complete your leads. Just click "Autofill Leads".' type="file" name="upload" />
+												</div>
+												<div class="col-md-3">
+													<div class="form-group">
+
+														<input type="text" class="form-control" name="company" id="company" placeholder="Company">
+													</div>
+													<div class="form-group">
+														<input type="url" class="form-control" name="companyURL" id="companyURL" placeholder="Company Website">
+													</div>
+													<div class="form-group">
+														<input type="url" class="form-control" name="personal_home_page" id="personalURL" placeholder="Personal Website">
+													</div>
+													<div class="form-group">
+														<input type="text" class="form-control" name="personal_location" id="location" placeholder="Location">
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="form-group">
+
+														<input type="url" class="form-control" name="personal_linkedin" id="linkedin" placeholder="LinkedIn URL">
+													</div>
+													<div class="form-group">
+														<input type="text" class="form-control" name="personal_twitter" id="twitter" placeholder="Twitter Handle">
+													</div>
+													<div class="form-group">
+														<input type="url" class="form-control" name="personal_facebook" id="facebook" placeholder="Facebook URL">
+													</div>
+													<div class="form-group">
+														<input type="text" class="form-control" name="note" id="notes" placeholder="Note">
+													</div>
+													<button type="submit" name="add_lead" class="lmebutton btn btn-default btn-sm pull-right">Add Lead</button>
+													<button type="submit" name="autofill" class="lmebutton btn btn-primary btn-sm pull-right" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Enter as much information as you can and Legion Analytics will fill in the rest! ^_^">Autofill Leads</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</table>
+							
+						<div class="inline-block">
+							{% for person in total_leads %}
+								<div class="id-card four-signal" id="{{person.id}}" name="{{forloop.counter}}">
+									<input type="checkbox" id="hidden-checkbox" class="hidden" name="leadsToExport" value="{{person.id}}"/>
+								<div>
+									<img class="profile-pic" id="main-profile-image" src="{{person.person.photo}}"/>
+								</div>
+								
+								<p class="lead-name" name="http://www.facebook.com/{{person.person.personal_facebook}}">{{person.person.name}}</p>
+								<p class="lead-age" name="http://www.twitter.com/{{person.person.personal_twitter}}">{{person.person.age}}</p>
+									<p class="lead-body" name="http://www.linkedin.com/{{person.person.personal_linkedin}}">{{person.person.job_set.all.0}}<br><span>{{person.person.location}}</span></p>
+								<p class="lead-email">&nbsp;{{person.person.email}}</p>
+								
+								</div>
+							
+							{% endfor %}
+						</div>
+					</div>
+					<!-- /.table-responsive -->
+				</div>
+				<!-- /.panel-body -->
+			</form>
+		</div>
+		<!--End of Compiled leads-->
+		<!-----------------Side Bar----------------->
+		<div class="col-md-1 lead-info-expanded">
+			<div id="lead-image-ex">
+				<img class="profile-pic-expanded" />
+			</div>
+			<br><br><br><br>
+			<p class="lead-name" id="name-ex"></p>
+			<p class="lead-age shift-up" id="age-ex"></p>
+			<p class="lead-body-ex" id="body-ex"></p>
+			<p class="lead-email" id="email-ex"></p>
+			<div class="inline-block" id="facebook-ex"><a  target="_blank"><img class="icon" src="{% static "Icons/Lead Completion/facebook_icon.png"%}"/></a></div>
+			<div class="inline-block" id="linkedin-ex"><a  target="_blank"><img class="icon" src="{% static "Icons/Lead Completion/linkedin_icon.png"%}"/></a></div>
+			<div class="inline-block" id="twitter-ex"><a  target="_blank"><img class="icon" src="{% static "Icons/Lead Completion/twitter_icon.png"%}"/></a></div>
+			<div class="social-media-ex">
+				<div class="notes-ex" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Coming Soon!">
+					<img class="notesIcon" src="{% static "Icons/Lead Completion/notesIcon.png" %}" />
+						<p class="notesHeader">Notes</p>
+					</div>
+				<div class="notes-ex" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Coming Soon!">
+					<img class="notesIcon" src="{% static "Icons/Lead Completion/dataIcon.png" %}" />
+						<p class="notesHeader">Data</p>
+					</div>
+			</div>
+		</div>
+	</div>
+	<!-- Notes Modal -->
+				<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  					<div class="modal-dialog">
+    					<form method="post">
+							<div class="modal-content">
+								<div class="modal-header">
+        							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="myModalLabel">Notes</h4>
+							</div>
+      							<div class="modal-body note-modal-body">
+        							<div class="col-md-4 side-bar">
+										<div class="past-notes"><img src="http://feelingsuccess.com/wp-content/uploads/2014/05/soty_hshot_Sir_Richard_Branson_v3.jpg" class="note-pic"/><p class="note-pic-p">1/7 12:43pm </p><p class="note-pic-sl">Verification Links</p></div>
+										<div class="past-notes"><img src="http://feelingsuccess.com/wp-content/uploads/2014/05/soty_hshot_Sir_Richard_Branson_v3.jpg" class="note-pic"/><p class="note-pic-p">1/7 12:43pm </p><p class="note-pic-sl">Forbes Links</p></div>
+										<div class="past-notes"><img src="http://feelingsuccess.com/wp-content/uploads/2014/05/soty_hshot_Sir_Richard_Branson_v3.jpg" class="note-pic"/><p class="note-pic-p">1/7 12:43pm </p><p class="note-pic-sl">Ryan</p></div>
+										<div class="past-notes"><img src="http://feelingsuccess.com/wp-content/uploads/2014/05/soty_hshot_Sir_Richard_Branson_v3.jpg" class="note-pic"/><p class="note-pic-p">1/7 12:43pm </p><p class="note-pic-sl">Look Here!</p></div>
+									</div>
+								
+										<div class="col-md-8 contain-text">
+										<textarea class="note-taking-box" placeholder="Type here..."></textarea>
+										</div>
+								
+      							</div>
+      							<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        							<button type="button" class="btn btn-primary">Save changes</button>
+      							</div>
+    						</div>
+						</form>
+  					</div>
+				</div>-->
+	<!--End of Notes Modal-->
+	
+	
+
+	
+	<script src="{% static "js/jquery.js"%}"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+	<script src="{% static "js/view-more.js" %}"></script>
+	<script src="{% static "js/moment.js" %}"></script>
+	<script src="{% static "js/livestamp.js" %}"></script>
+	<!--Script that selects divs for deleteing and exporting-->
+	<script>
+		/*This is the control feature that allows multiple select*/
+			var i1;
+			var i2;
+		
+			$(".id-card").dblclick(function(e) {
+				var id = $(this).attr("id");
+				if(e.shiftKey) {
+					i2 = $("#"+id).attr("name");
+					$("#"+id).toggleClass("black");
+					
+					if(i1<i2){
+					$("#"+id).prevUntil(".black").toggleClass("black");
+					}else{
+						$("#"+id).nextUntil(".black").toggleClass("black");
+					}
+				}else if(e.metaKey) {
+					i1 = $("#"+id).attr("name");
+					$("#"+id).toggleClass("black");
+				}else{
+					i1 = $("#"+id).attr("name");
+					$(".black").toggleClass("black");
+					$("#"+id).toggleClass("black");
+				}
+				$(".id-card > #hidden-checkbox").prop("checked",false);
+				$(".black > #hidden-checkbox").prop("checked",true);
+				
+			});
+			
+	</script>
+	
+	<!--Script to add information to the side bar-->
+	<script>
+		$(document).ready(function(){
+			$(".id-card").click(function(){
+				var leadId = $(this).attr('id');
+				/*Replace Image*/
+				$('#lead-image-ex img').attr('src',$("#"+leadId+" img").attr('src'));
+				/*Replace Name*/
+				var leadName =$("#" + leadId + " .lead-name").text();
+				$("#name-ex").empty();
+				$("#name-ex").append(leadName);
+				/*Replace Age*/
+				var leadAge =$("#" + leadId + " .lead-age").text();
+				$("#age-ex").empty();
+				$("#age-ex").append(leadAge);
+				/*Replace Job Title and Company*/
+				var leadJob =$("#" + leadId + " .lead-body").html();
+				$("#body-ex").empty();
+				$("#body-ex").append(leadJob);
+				/*Replace Email*/
+				var leadEmail =$("#" + leadId + " .lead-email").text();
+				$("#email-ex").empty();
+				$("#email-ex").append(leadEmail);
+				/*Replace Social Media*/
+				$('#facebook-ex a').attr('href',$("#"+leadId+" .lead-name").attr('name'));
+				$('#twitter-ex a').attr('href',$("#"+leadId+" .lead-age").attr('name'));
+				$('#linkedin-ex a').attr('href',$("#"+leadId+" .lead-body").attr('name'));
+				
+				
+			});
+		});
+		
+		$(".lmebutton").click(function(){
+			$(".loader-bkgd").removeClass("hidden").fadeIn();
+		});
+		
+		$(".navbar-brand").click(function(){
+			$(".loader-bkgd").removeClass("hidden").fadeIn();
+		});
+		
+		$(function () {
+  			$('[data-toggle="popover"]').popover()
+		});
+	</script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="{% static "js/bootstrap.js" %}"></script>
+	<script src="{% static "js/modal.js" %}"></script>
+	<script>
+       $(window).keydown(function (e) {
+           if (e.metaKey && e.keyCode==65) $(".id-card").toggleClass("black");
+       $(".id-card > #hidden-checkbox").prop("checked",false);
+    $(".black > #hidden-checkbox").prop("checked",true);        
+});
+</script>
+</body>
+
+
+</html>

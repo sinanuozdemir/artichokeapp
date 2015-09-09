@@ -1,0 +1,611 @@
+.kpiHeader{
+	position:fixed;
+	top: 44px;
+	border-top: 6px solid #ececec;
+	width: 98.5%;
+	height: 100px;
+	background-color: #f8f8f8;
+	margin: 0 10px;
+	z-index: 999;
+	box-sizing: content-box;
+}
+.slideShowContainer{
+	position: absolute;
+	width:80px;
+	overflow: hidden;
+	height: 70px;
+	left: 25px;
+	top: -5px;
+}
+.slideReel{
+	position: absolute;
+}
+.mainCompany{
+	position: absolute;
+	width: 130px;
+	margin: 10px 0;
+	border-right: 1px solid #ececec;
+	height: 80px;
+}
+.arrow{
+	position: absolute;
+	top: 20px;
+	color: #c5c5c5;
+	cursor: pointer;
+}
+.leftArrow{
+	left: 10px;
+}
+.rightArrow{
+	left: 110px;
+}
+.companyLogo{
+	position: absolute;
+	width: 60px;
+	height: auto;
+	max-height: 60px;
+	left: 10px;
+	top: 5px;
+}
+#slide2{
+	left: 100px
+}
+#slide3{
+	left: 200px
+}
+#slide4{
+	left: 300px
+}
+.addCompetitor{
+	position: absolute;
+	bottom: 0;
+	color: #959595;
+	font-size: 9px;
+	left: 50px;
+}
+.addCompetitor:hover{
+	cursor: pointer;
+}
+.kpiNumbers{
+	font-family: "Roboto Slab Light", "Helvetica Neue", sans-serif;
+	position: absolute;
+	left: 130px;
+	font-size: 36px;
+}
+.kpiWords{
+	position: absolute;
+	left: 130px;
+	top: 70px;
+	font-size: 14px;
+}
+.kpiNumbers td{
+	padding-top:10px;
+}
+.clickKPI,.changeKPI,.sentimentEvent{
+	position: inherit;
+	width: 200px;
+	text-align: center;
+}
+.kpiTable{
+	position: inherit;
+	width: 1000px;
+	margin-bottom: 20px;
+	margin-left: 50px;
+}
+.graphSelection{
+	position: fixed;
+	background-color: #f8f8f8;
+	text-align: center;
+	padding: 7px 10px 10px 10px;
+	width: 150px;
+	height: 30px;
+	border-radius: 0;
+	top: 160px;
+	left: 10px;
+	font-size: 11px;
+	border-left: 3px solid #cd6562;
+}
+.graphDropDown{
+	position: fixed;
+	background-color: #f8f8f8;
+	text-align: center;
+	padding: 10px 10px 10px 10px;
+	width: 150px;
+	height: 80px;
+	font-size: 11px;
+	border-radius: 0;
+	line-height: 20px;
+	top: 193px;
+	left: 10px;
+	box-shadow: 0 3px 5px 0px rgba(0,0,0,.2);
+	display: none;
+	z-index: 99;
+}
+.kpiSelector{
+	position: fixed;
+	background-color: #f8f8f8;
+	text-align: left;
+	font-size: 11px;
+	border-radius: 0;
+	line-height: 20px;
+	box-shadow: 0 3px 5px 0px rgba(0,0,0,.2);
+	z-index: 99;
+	padding: 10px 10px 10px 10px;
+	width: 150px;
+	height: 200px;
+	top: 140px;
+	left: 220px;
+	display: none;
+}
+#dropDownSelection{
+	position: fixed;
+	z-index: 99;
+	left: 130px;
+	top: 169px;
+	color: #c5c5c5;
+}
+.graphSelection:hover{
+	cursor: pointer;
+}
+.option:hover{
+	background-color: #f1f1f1;
+	border-bottom: 1px solid #cd6562;
+	cursor: pointer;
+}
+.kpioption:hover{
+	background-color: #f1f1f1;
+	border-bottom: 1px solid #cd6562;
+	cursor: pointer;
+}
+.d3GraphContainer{
+	position: relative;
+	width: 1110px;
+	height: 250px;
+	padding:10px;
+	background-color: #f8f8f8;
+	top: 160px;
+	left: 160px;
+	border-left: 1px solid #c5c5c5;
+}
+.bottomGraphContainer{
+	position: relative;
+	width: 1110px;
+	min-height: 250px;
+	height: auto;
+	padding: 10px;
+	background-color: #f8f8f8;
+	top: 170px;
+	margin-bottom:268px;
+	left: 160px;
+	border-left: 1px solid #c5c5c5;
+	display:block;
+}
+.addEventBtn{
+	position: absolute;
+	left: 950px;
+}
+.addEventBtn:hover{
+	cursor: pointer;
+}
+.eventHeader{
+	background-color: #ececec;
+	font-family: "Montserrat UltraLight";
+}
+.eventTable{
+	width: 1080px;
+	margin-top: 50px;
+	left:-40px;
+	display: block;
+}
+.dataHead{
+	text-align: center;
+}
+.sentimentSignal{
+	border-left: 2px solid #959595;
+	padding-top: 3px;
+}
+.green{
+	border-color:#bce5ba;
+}
+.red{
+	border-color:#dc8582;
+}
+.recentConsumers{
+	position: fixed;
+	left: -10px;
+	top:200px;
+	width: 170px;
+	height:450px;
+	padding-left:20px;
+	background-color: #f8f8f8;
+}
+#consumerFilters{
+	position: fixed;
+	left: 0px;
+	top:200px;
+	align-content: center;
+	text-align: left;
+	text-align: -webkit-left;
+	font-family: "Montserrat UltraLight", sans-serif;
+	display: none;
+	background-color: #f8f8f8;
+	padding: 10px 20px 10px 15px;
+}
+.filterTitle{
+	width: 100px;
+	height: 30px;
+	color: #3b3b3b;
+	text-align: center;
+	padding: 5px;
+	position:relative;
+	left:-16px;
+}
+.filter>.companyCheckbox>.checked{
+	top:-7px;
+}
+.filter{
+	margin-bottom:10px;
+}
+.filter:hover{
+	cursor: pointer;
+}
+.eventBox:hover{
+	cursor: default;
+}
+.consumer{
+	width: 130px;
+	margin: 2px 5px;
+	height: 40px;
+	border-bottom: 1px solid #ececec;
+}
+.consumer:hover{
+	cursor: pointer;
+}
+.consumer-total{
+	color: #cd6562;
+	font-size: 10px;
+	padding-top: 8px;
+	height: 30px;
+	padding-left: 5px;
+}
+.cName{
+	padding-left:5px;
+	font-size: 12px;
+	padding-top: 3px;
+}
+.cType{
+	font-size: 9px;
+	padding-left: 5px;
+}
+.cTweet{
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid #4099FF;
+	transform:rotate(135deg);
+	position: relative;
+	bottom:-3px;
+	left:128px;
+}
+.changeKPI{
+	position:inherit;
+}
+.changeKPI:hover{
+	cursor: context-menu;
+	color: #cd6562;
+}
+.changeBtn{
+	width: 7px;
+	height: 7px;
+	background-color: #dc8582;
+	color: #000000;
+	position: relative;
+	border-radius: 100%;
+	text-align: center;
+}
+#demographicPage{
+	display: none;
+}
+#consumerPage{
+	display: none;
+}
+.demoGraphs{
+	height: 230px;
+	width: 1090px;
+}
+#ageGraph, #smGraph{
+	border-right: 1px solid #c5c5c5;
+}
+#cartograph{
+	position: relative;
+	width: 400px;
+	height: 230px;
+}
+#topAudience{
+	width: 680px;
+	height: 230px;
+	position: relative;
+	margin-top:-340px;
+	left: 550px;
+}
+.audience{
+	text-align: center;
+	font-size: 12px;
+	width: 300px;
+	line-height: 20px;
+}
+.cities{
+	text-align: left;
+	margin-left: 70px;
+}
+.positiveUnderline{
+	border-bottom: 2px solid #bce5ba;
+	width: 120px;
+	margin-left: 50px;
+	margin-top: -10px;
+}
+.negativeUnderline{
+	border-bottom: 2px solid #dc8582;
+	width: 120px;
+	margin-left: 50px;
+	margin-top: -10px;
+}
+.neutralUnderline{
+	border-bottom: 2px solid #c5c5c5;
+	width: 120px;
+	margin-left: 50px;
+	margin-top: -10px;
+}
+.compLabel{
+	font-family: "montserrat Regular";
+	color: #c5c5c5;
+}
+.competitor_header{
+	font-family: "Roboto Slab Light";
+}
+.targetMarketNotification{
+	top: 500px;
+}
+.eventError{
+	top:235px;
+}
+.clickKPI:hover{
+	cursor: pointer;
+}
+.not-allowed{
+	cursor: not-allowed;
+}
+#positiveKPI{
+	color: #84c682;
+}
+#negativeKPI{
+	color: #cd6562;
+}
+#periodChangeKPI{
+	color: #84c682;
+}
+.consumerGraphContainer{
+	height: 510px;
+	overflow: hidden;
+	position:fixed;
+	top: 160px;
+}
+
+.newOutboundLead{
+	top: 0px;
+	left: 10px;
+	width: 450px;
+	height: 50px;
+	background-color: #fff;
+	overflow: hidden;
+}
+
+.pageTurner{
+	position: relative;
+	margin: 0 0 3px 0;
+	top: 0px;
+	left: 10px;
+	width: 450px;
+	background-color: #fff;
+	overflow: hidden;
+	border: 1px solid #c5c5c5;
+	border-bottom: 3px solid #c5c5c5;
+	font-family: Montserrat Light;
+	text-align: center;
+	padding-top: 5px;
+	height: 30px; 
+}
+.pageTurner:hover{
+	cursor: pointer;
+}
+
+.leadPhoto{
+	width: 50px;
+	height: 50px;
+}
+.largeTweet{
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid #4099FF;
+	transform:rotate(135deg);
+	-webkit-transform:rotate(135deg);
+	position: absolute;
+	top:46px;
+	left:443px;
+}
+.rightSideLead{
+	position: relative;
+	top: 60px;
+	left: 0;
+	width: 550px;
+	height: 200px;
+	background-color: #fff;	
+}
+.consumerSentiment{
+	width: 550px;
+	height: 100px;
+	background-color: #fff;
+	position: relative;
+	top: 80px;
+	left: 0;
+	text-align: center;
+	padding-top: 35px;
+	font-family: "Roboto Slab Light";
+	font-size: 24px;
+}
+.handleId{
+	position: inherit;
+	left: 20px;
+	top: 85px;
+}
+.rightSideConsumer{ 
+	height:100%;
+	position: relative;
+	top:-500px;
+	left:500px;
+	overflow: auto;
+	overflow-x: hidden;
+	padding-bottom: 162px;
+}
+.leftSideConsumer{ 
+	height:100%;
+	position: relative;
+	top:50px;
+	width: 465px;
+	overflow: auto;
+	overflow-x: hidden;
+	padding-bottom: 162px;
+}
+.consumerTweet{
+	font-family: "Montserrat UltraLight";
+	margin-top:15px;
+	text-align: left;
+	font-size: 14px;
+	padding: 25px 20px;
+}
+.replyConsumerTweet{
+	font-family: "Montserrat UltraLight";
+	margin-top:5px;
+	text-align: left;
+	font-size: 14px;
+	padding: 25px 20px;
+	width: 530px;
+	left: 20px;
+}
+.negative{
+	color: #cd6562;
+}
+.positive{
+	color: #84c682;
+}
+.neutral{
+	color: #959595;
+}
+#industryGraph{
+	max-width: 364px;
+	min-width: 364px;
+	padding:0;
+	width: 364px;
+	overflow: hidden;
+	position: relative;
+	padding-left: 45px;
+	top:0px;
+}
+.companyCheckbox{
+	width: 10px;
+	height: 10px;
+	background-color: white;
+	border: 1px solid #c5c5c5;
+	display:inline-block;
+	text-align: center;
+	align-content: center;
+	vertical-align: middle;
+}
+.followerCheckbox{
+	position: relative;
+	top: 10px;
+}
+.checked{
+	position: relative;
+	top: -3px;
+	left:0;
+	font-size: 9px;
+	color: #3b3b3b;
+}
+.companyCheckbox:hover{
+	cursor: pointer;
+}
+.currentFilter{
+	position: absolute;
+	background-color: white;
+	text-align: center;
+	padding: 2px 10px 10px 10px;
+	width: 150px;
+	height: 30px;
+	border-radius: 0;
+	top: 16px;
+	left: 20px;
+	font-size: 11px;
+	border-left: 1px solid #c5c5c5;
+}
+.compName,.filterName{
+	position: relative;
+	top:0;
+	font-size: 10px;
+	display: inline-block;
+	padding-left: 10px;
+}
+
+.sentimentScore{
+	font-size: 11px;
+	position: absolute;
+	top: 75px;
+	right: 10px;
+}
+.sentimentScore:hover{
+	cursor: pointer;
+}
+.replyTweet{
+	font-size: 14px;
+	margin-left: 10px;
+}
+.negativeReplyBox{
+	resize: none;
+	position: relative;
+	top: 0;
+	left: 5px;
+	width: 98%;
+	height: 80%;
+	border: none;
+}
+.negativeReplyBox:focus{
+	outline: none;
+}
+.sendTweetBtn{
+	position: relative;
+	bottom: 5px;
+	left: 384px;
+	width: 100px;
+	height:22px;
+	padding-top:2px;
+	font-size: 10px;
+}
+.sendTweetBtn:active,.sendTweetBtn:focus,.sendTweetBtn:visited{
+	outline: none;
+}
+.tier5-btn-sm{
+	width: 100px;
+	height: 25px;
+	background-color: #bce5ba;
+	color: #3b3b3b;
+	text-align: center;
+	padding-top: 2px;
+	border: 1px solid #84c682;
+	border-bottom: 3px solid #84c682;
+}
+.personSocialMedia{
+	top:-10px;
+}

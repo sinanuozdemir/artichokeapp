@@ -1,0 +1,105 @@
+@import url(http://fonts.googleapis.com/css?family=Avenir:700,400);
+body {
+	background-color: #ececec;
+	font-family: "Avenir", sans-serif;
+	color: #3b3b3b;
+}
+#form-container {
+	position: absolute;
+	top:35vh;
+	left: 37vw;
+	display: flex;
+	display: -webkit-flex;
+	align-content: center;
+	text-align: center;
+}
+input{
+	display: flex;
+	display: -webkit-flex;
+	margin: 2vh 2vw;
+	width: 17vw;
+	height: 5vh;
+	padding-left: 1vw;
+	border-bottom: 1px solid #c5c5c5;
+	border-right: 1px solid #c5c5c5;
+	color: #cd6562;
+	border-top:none;
+	border-left: none;
+}
+input:focus{
+	outline: none;
+}
+.logo {
+	position: absolute;
+	left: 4.5vw;
+	top: -5vh;
+	font-size: 1.5em;
+}
+.logo-lost{
+	position: absolute;
+	left: 4.5vw;
+	top: -14vh;
+	font-size: 1.5em;
+}
+
+.btn-signin {
+	width: 17vw;
+	height: 5vh;
+	background-color: #cd6562;
+	color: #f8f8f8;
+	border-bottom: #dc8582;
+	border-right: #dc8582;
+	border-top: none;
+	border-left: none;
+	font-size: .8em;
+	position: absolute;
+	left:2vw;
+}
+button:focus{
+	outline: none;
+}
+
+.forgot {
+	position: absolute;
+	color: #959595;
+	left:6vw;
+	top: 23vh;
+}
+.noaccount {
+	position: absolute;
+	color: #959595;
+	left:6vw;
+	top: 25vh;
+}
+.forgot:hover{
+	color:#cd6562;
+	cursor:pointer;
+}
+.noaccount{
+	color:#cd6562;
+	cursor: pointer;
+}
+
+.email-explanation {
+	position: absolute;
+	top:-7vh;
+}
+
+container>row>#form-container a[href]{
+	color: #3b3b3b;
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: none;
+	color: #3b3b3b;
+}
+
+
+
+.404-icon {
+	height: 5vh;
+	width: auto;
+	position: absolute;
+	top: 20vh;
+	left: 20vw;
+}

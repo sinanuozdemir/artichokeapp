@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+<head>
+	<link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Legion Analytics is the easiest way to analyze your email lists. Use predictive analytics to target customers and deliver better content.">
+	<meta name="author" content="Tier5">
+	<meta name="keyword" content="Legion Analytics, email dashboard, social media analytics, tier5, blogger subscriber dashboard, free subscriber analytics, predictive analytics dashboard, trust based marketing">
+	<title>Legion Analytics-Sign Up</title>
+	<link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="{% static "css/signup.css" %}" />
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<script>
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-62659538-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+</head>
+
+<body>
+	<div class="container">
+		<form name="signUp" method="post" id="signupform"> {% csrf_token %}
+			<div class="row">
+				<div class="col-md-4">
+				</div>
+				<div class="col-md-4 center-bracket">
+					<br>
+					<h1 class="signUpHeader">  Legion Analytics</h1>
+					{% if error %}
+					<p class="success-subtitle">{{error}}</p>
+					{% else %}
+					<p class="success-subtitle">By understanding your sales pipeline, we allow sales reps to eliminate the time they spend on prospecting and focus on more of what they love, nurturing and closing.</p>
+					{% endif %}
+					<input class="inF" id="name" name="name" placeholder="Name" required="" type="text" autocomplete="off">
+					<input class="inF" id="email" name="email" placeholder="Email" required="" type="email" autocomplete="off">
+					<input class="inF" id="phone" name="phone" pattern="(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})" placeholder="Phone Number" required="" type="text" autocomplete="off">
+					<input class="inF" id="pw" name="password" placeholder="Password" required="" type="password" autocomplete="off">
+					<input class="inF" id="website" name="website" placeholder="Website" required="" type="url" autocomplete="off">
+					<input class="inF" id="company_name" name="company_name" placeholder="Company" required="" type="text" autocomplete="off">
+				</div>
+				<div class="col-md-4">
+					<button type="submit" class="btn btn-default">Request Demo</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+<script>
+$(document).ready(function(){
+
+    $("button").on("click", function(e){
+
+    	e.preventDefault();
+    	var name = $("#name").val();
+    	var email = $("#email").val();
+    	var phone = $("#phone").val();
+    	var pw = $("#pw").val();
+    	var website = $("#website").val();
+    	var comp = $("#company_name").val();
+    	
+	    	$("button").text("Sending...");
+	        $.ajax({
+	            type: "post",
+	            data: $("#signupform").serialize(),
+	        })
+	        .done(function(e){
+	            $("button").text("Request Sent!");
+	            if (e.status == "success") {
+	            alert("Thanks for signing up with Tier5! We will contact you shortly to set up a demo!"); }
+	            else {
+	            alert("A user with this email already exists!"); }
+	        })
+	        .fail(function(e){
+	            $("button").text("Request Failed. Please Try Again");
+	        })
+	        .complete(function(){
+	            window.setTimeout(function(){
+	                    $("button").text("Request Demo");
+	                    $(".inF").val("");
+	                },1000);
+
+	        });
+    	
+    });
+})
+</script>
+
+</html>

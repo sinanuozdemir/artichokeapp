@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+<head>
+  <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
+  <link rel="icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Legion Analytics is the easiest way to analyze your email lists. Use predictive analytics to target customers and deliver better content.">
+    <meta name="author" content="Tier5">
+    <meta name="keyword" content="Legion Analytics, email dashboard, social media analytics, tier5, blogger subscriber dashboard, free subscriber analytics, predictive analytics dashboard">
+    <title>Sign In to Legion Analytics</title>
+    <link type="text/css" rel="stylesheet" href="{% static "css/bootstrap.css" %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static "css/signin.css" %}"/>
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62659538-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div id="form-container">
+              <div class="logo"><strong>Legion</strong> Analytics</div>
+                <form method="post" id="signin"> {% csrf_token %}
+                    {{form.email}}
+                    {{form.password}}
+                    <!-- <input type="email" placeholder="Enter email" name="email" required/>
+                    <input type="password" placeholder="Enter password" name="password" required/> -->
+                    <button type="submit" name="submit" class="btn-signin">Sign In</button>
+                </form>
+                <a href="/legion/forgot"><div class="forgot">Forget something?</div></a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+</html>

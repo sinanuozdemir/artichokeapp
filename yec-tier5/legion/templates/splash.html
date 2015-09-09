@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Tier5</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+<link href="{% static "css/cover.css" %}" rel="stylesheet">
+    <!--script src="../../assets/js/ie-emulation-modes-warning.js"></script-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="{% static "https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js" %}"></script>
+      <script src="{% static "https://oss.maxcdn.com/respond/1.4.2/respond.min.js" %}"></script>
+    <![endif]-->
+  </head>
+
+  <body background="{% static "Background.jpg" %}">
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <a class="icon"><img src="{% static "Icons/Base/tier5_logo.png" %}"/></a>
+              <ul class="nav masthead-nav">
+
+                <li class="active"><a href="/login" target="_blank">Sign In</a></li>
+                <li><button type="button" id="opener" class="btn-default btn-warning" onclick="contactus()">Request a Demo</button></li>
+
+              </ul>
+            </div>
+          </div>
+
+          <div class="inner cover">
+            <h1 class="cover-heading">Need Qualified Leads?</h1>
+            <p class="lead cover-text">Welcome to automated lead generation.</p>
+            <p class="lead">
+              <button type="button" class="btn-lgr btn-default btn-warning" onclick="contactus()">Request a Demo</button>
+            </p>
+          </div>
+
+       </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        function contactus(){
+          myWindow = window.open("./contact", "Contact Us", "width=600, height=600");
+        }
+
+    </script>
+    <!--script src="js/docs.min.js"></script-->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--script src="../../assets/js/ie10-viewport-bug-workaround.js"></script-->
+  </body>
+</html>

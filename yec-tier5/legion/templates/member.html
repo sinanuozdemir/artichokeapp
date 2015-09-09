@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+
+<head>
+	<title>Team Member</title>
+	<link href="{% static "css/bootstrap.css" %}"rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link href="{% static "css/plugins/dataTables.bootstrap.css" %}" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="{% static "css/main.css" %}" />
+
+
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<section>
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+
+				<a class="navbar-brand" href="/lead_generation_notdjango.html" id="logo">
+					<img src="{% static "Icons/Base/tier5_logo.png"%}">
+				</a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="container">
+
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="/lead_management.html" class="navbar-brand" id="LM-wrap">
+							<img src="{% static "Icons/Base/leadManagement_tab.png" %}" class="nav-icons">
+							<p id="LM">Lead Management</p>
+						</a>
+					</li>
+					<li>
+						<a class="navbar-brand" id="LG-wrap" href="/lead_generation_notdjango.html">
+							<img src="{% static "Icons/Base/leadGeneration_tab.png" %}" class="nav-icons">
+							<p id="LG">Lead Generation</p>
+						</a>
+					</li>
+					<li>
+						<a class="navbar-brand" id="settings-wrap" href="/account.html">
+							<img src="{% static "Icons/Base/settings_tab.png" %}"class="nav-icons">
+							<p id="ss">Account</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</section>
+		<!-- /.container -->
+	</nav>
+
+	<div class="row">
+
+		<div class="container-fluid" id="team-member-info-card">
+			<div class="col-md-1"></div>
+
+			<div class="col-md-1" id="info-1">
+				<img src="https://scontent-2.2914.fna.fbcdn.net/hphotos-xfa1/v/t1.0-9/427284_10101705581188429_532956585_n.jpg?oh=3e0cb308a524da70cd451718ad98cf88&oe=5524E0CF" id="tm-photo">
+
+			</div>
+			<div class="col-md-1" id="info-2">
+
+				<p id="name-info"><strong>Scott Gerber</strong>
+				</p>
+				<p id="last-login-info"><em>Last login: 3 mins ago</em>
+				</p>
+			</div>
+
+			<div class="col-md-2 leads-per-month">
+				<div class="card-top-border-info-page">
+					<div class="teamMember1-TM">
+						<span><b>Leads This Month</b></span>
+
+					</div>
+				</div>
+				<div class="numLeads TM-numLeads">754</div>
+			</div>
+
+			<div class="col-md-2 leads-per-month">
+				<div class="card-top-border-info-page">
+					<div class="teamMember1-TM">
+						<span><b>Leads Last Month</b></span>
+
+					</div>
+				</div>
+				<div class="numLeads TM-numLeads">3,754</div>
+
+			</div>
+
+			<div class="col-md-2 leads-per-month">
+				<div class="card-top-border-info-page">
+					<div class="teamMember1-TM">
+						<span class="all-time"><b>Leads To Date</b></span>
+
+					</div>
+				</div>
+				<div class="numLeads TM-numLeads">340,754</div>
+
+			</div>
+
+			<!--This is a buffer div at the far right to push the "next" button to the left-->
+			<div class="col-md-1 pull-right">
+
+			</div>
+			<!--END of buffer div-->
+
+			<a href="/team-member-2.html">
+				<div class="col-md-1 pull-right" id="next-btn">
+					Next
+				</div>
+			</a>
+
+
+		</div>
+
+		<!---this is a buffer div to push the data table right-->
+		<div class="col-md-1">
+		</div>
+		<!--end of buffer div-->
+
+		<div class="col-md-10">
+			<!-- /.panel-heading -->
+			<form method="POST"> {% csrf_token %}
+
+				<div class="panel-body" id="panel-id-tag">
+					<div class="table-responsive" id="table-tag">
+						<table>
+							<thead>
+								<tr>
+									<td>
+										<button type="submit" method="POST" class="btn btn-default btn-sm" value="submit">Export Selected</button>
+									</td>
+
+									<td>
+										<button type="submit" method="POST" value="submit" class="btn btn-default btn-sm">Export New Leads</button>
+									</td>
+									<td>
+										<button type="submit" method="POST" value="submit" class="btn btn-default btn-sm">Delete Selected</button>
+									</td>
+								</tr>
+							</thead>
+						</table>
+						<table class="table table-hover" id="dataTables-example">
+							<thead>
+								<tr>
+									<th>
+										<!--This is the main checkbox to check all other checkboxes-->
+
+										<label for="test1"></label>
+										<p class="data-header">Full Name</p>
+									</th>
+									<th class="age-data">
+										<p class="data-header">Age</p>
+
+									</th>
+									<th>
+										<p class="data-header">Email</p>
+
+									</th>
+									<th>
+										<p class="data-header">Twitter</p>
+
+									</th>
+									<th>
+										<p class="data-header">LinkedIn</p>
+
+									</th>
+									<th>
+										<p class="data-header">Company</p>
+
+									</th>
+									<th>
+										<p class="data-header">Website</p>
+
+									</th>
+									<th>
+										<p class="data-header">Location</p>
+
+									</th>
+									<th>
+										<p class="data-header">Owner</p>
+
+									</th>
+									<th>
+										<p class="data-header">Date</p>
+
+									</th>
+								</tr>
+							</thead>
+
+							<tbody id="lead-gen-table">
+
+
+
+
+								<!--THIS IS THE NEW LEAD THAT THE USER HASNT SEEN YET. IT GETS THE CLASS "INFO" TO BRING THE USERS ATTENTION TO THE NEWLY ADDED LEADS.-->
+
+								<!-------------------------------------this is the check box problem---------------------------------------------------------->
+								<tr class="even gradeC info" onclick="myFunction('{{lead.first_name}}', '{{lead.last_name}}', '{{lead.company}}', '{{lead.title}}', '{{lead.location}}', '{{lead.age}}', '{{lead.photo}}',
+                                                                   '{{lead.personal_linkedin}}', '{{lead.personal_twitter}}', '{{lead.personal_facebook}}', '{{lead.email}}')">
+									<td class="data-filled">
+										<input type="checkbox" id="test_{{lead.id}}" name="checks" value="{{lead.id}}" />
+										<label for="test_{{lead.id}}"></label>Sinan Ozdemir</td>
+									<!---------------------------------this is the end of the check box problem---------------------------------------------->
+									<td class="age-data">
+										<p class="data-filled">23</p>
+									</td>
+									<td>
+										<!--Email-->
+										<p class="data-filled">sinan.u.ozdemir</p>
+									</td>
+
+									<td>
+
+										<!--Twitter-->
+										<p class="data-filled">@sinanTier5</p>
+									</td>
+
+									<td>
+										<!--Linkedin-->
+										<p class="data-filled">www.linkedin.com</p>
+									</td>
+									<td>
+										<!--Company-->
+										<p class="data-filled">Tier5</p>
+									</td>
+									<td>
+										<!--Website-->
+										<p class="data-filled">http://tier5.co</p>
+									</td>
+									<td>
+										<!--Location-->
+										<p class="data-filled">Baltimore, Md</p>
+									</td>
+									<td>
+										<!--Owner-->
+										<p class="data-filled">Scott</p>
+									</td>
+									<td>
+										<!--Time Stamp/Date-->
+										<p class="data-filled">12/30/14</p>
+									</td>
+
+								</tr>
+
+								<!---------------------THIS IS THE DATA THAT HAS ALREADY BEEN SEEN BY THE USER. THE DATA WILL LOOSE THE CLASS "INFO"/------------------>
+								<tr class="even gradeC" onclick="myFunction('{{lead.first_name}}', '{{lead.last_name}}', '{{lead.company}}', '{{lead.title}}', '{{lead.location}}', '{{lead.age}}', '{{lead.photo}}',
+                                                                   '{{lead.personal_linkedin}}', '{{lead.personal_twitter}}', '{{lead.personal_facebook}}', '{{lead.email}}')">
+									<td class="data-filled">
+										<input type="checkbox" id="test_{{lead.id}}" name="checks" value="{{lead.id}}" />
+										<label for="test_{{lead.id}}"></label>Sinan Ozdemir</td>
+									<!---------------------------------this is the end of the check box problem---------------------------------------------->
+									<td class="age-data">
+										<p class="data-filled">23</p>
+									</td>
+									<td>
+										<!--Email-->
+										<p class="data-filled">sinan.u.ozdemir</p>
+									</td>
+
+									<td>
+
+										<!--Twitter-->
+										<p class="data-filled">@sinanTier5</p>
+									</td>
+
+									<td>
+										<!--Linkedin-->
+										<p class="data-filled">www.linkedin.com</p>
+									</td>
+									<td>
+										<!--Company-->
+										<p class="data-filled">Tier5</p>
+									</td>
+									<td>
+										<!--Website-->
+										<p class="data-filled">http://tier5.co</p>
+									</td>
+									<td>
+										<!--Location-->
+										<p class="data-filled">Baltimore, Md</p>
+									</td>
+									<td>
+										<!--Owner-->
+										<p class="data-filled">Scott</p>
+									</td>
+									<td>
+										<!--Time Stamp/Date-->
+										<p class="data-filled">12/30/14</p>
+									</td>
+
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+					<!-- /.table-responsive -->
+
+				</div>
+				<!-- /.panel-body -->
+			</form>
+
+
+
+
+		</div>
+		<!--End of Compiled leads-->
+
+
+	</div>
+
+
+	<script src="{% static "js/jquery.js"%}"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="{% static "js/bootstrap.min.js"%}"></script>
+	<!-- DataTables JavaScript -->
+	<script src="{% static "js/plugins/dataTables/jquery.dataTables.js"%}">
+	</script>
+	<script src="{% static "js/plugins/dataTables/dataTables.bootstrap.js"%}"></script>
+
+</body>
+
+</html>

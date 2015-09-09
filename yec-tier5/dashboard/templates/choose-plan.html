@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Legion Analytics is the easiest way to analyze your email lists. Use predictive analytics to target customers and deliver better content.">
+	<meta name="author" content="Tier5">
+	<meta name="keyword" content="Legion Analytics, email dashboard, social media analytics, tier5, blogger subscriber dashboard, free subscriber analytics, predictive analytics dashboard, trust based marketing">
+	<title>Legion Analytics-Choose Plan</title>
+	<link type="text/css" rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" />
+	<script src="{% static "js/jquery.js" %}"></script>
+	<script src="{% static "js/bootstrap.min.js" %}"></script>
+	<link type="text/css" rel="stylesheet" href="{% static "css/plan.css" %}" />
+	<link type="text/css" rel="stylesheet" href="{% static "css/pricing.css" %}" />
+	<link type="text/css" rel="stylesheet" href="{% static "font-awesome/css/font-awesome.css" %}" />
+	<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+	<script type="text/javascript">
+  		Stripe.setPublishableKey('pk_live_dOwIuwJIzpJSQrgYCPDNgUy1');
+	</script>
+	<script>
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-62659538-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="center heading"><strong>Choose Plan</strong></div>
+		<div class="subheading center">All plans include social data, email validation, Twitter follower data, and 24/7 email support.</div>
+		<form name="signUp" method="post"> {% csrf_token %}
+			<div class="row">
+				<div class="col-md-12">
+					<div id="pricing_tables" class="clearfix">
+						<ul>
+							<li class="table_4 pricing_table ">
+								<div class="table_title">Basic</div>
+
+								<div class="price_container">
+									<span class="price">Free</span>
+									<span class="description">Per Month</span>
+								</div>
+
+								<div class="features">
+									<span class="tier5red"><strong>50</strong></span> One-Time Credits
+									<br> <span class="tier5red"><strong>10</strong></span> Monthly Credits
+									<br> -----------
+									<br> - </div>
+
+								<div class="table_button">
+
+									<a href="/legion/dashboard" id="free-plan">Buy Now</a>
+								</div>
+
+							</li>
+							<li class="table_4 pricing_table  highlight">
+								<div class="table_title tier5redbkgd">Pro</div>
+
+								<div class="price_container">
+									<span class="price">$49</span>
+									<span class="description">Per Month</span>
+								</div>
+
+								<div class="features">
+									<span class="tier5red"><strong>5,000</strong></span> One-Time Credits
+									<br> <span class="tier5red"><strong>500</strong></span> Monthly Credits
+									<br> -----------
+									<br> $50 per extra 1K credits </div>
+
+								<div class="table_button ">
+
+									<a class="tier5redbkgd" href="#" id="pro-plan">Get</a><form method = 'POST'>{% csrf_token %} <input class="hidden" id="pro-payment" name="confirmed" value="4900"></form>
+								</div>
+
+							</li>
+							<li class="table_4 pricing_table ">
+								<div class="table_title">Small Business</div>
+
+								<div class="price_container">
+									<span class="price">$350</span>
+									<span class="description">Per Month</span>
+								</div>
+
+								<div class="features">
+									<span class="tier5red"><strong>50,000</strong></span> One-Time Credits
+									<br> <span class="tier5red"><strong>1,000</strong></span> Monthly Credits
+									<br> -----------
+									<br> $25 per extra 1K credits </div>
+
+								<div class="table_button">
+
+									<a href="#" id="small-biz-plan">Buy Now</a><form method = 'POST'>{% csrf_token %} <input class="hidden" id="small-biz-payment" name="small-biz" name="confirmed" value="35000"></form>
+								</div>
+
+							</li>
+							<li class="table_4 pricing_table ">
+								<div class="table_title">Enterprise</div>
+
+								<div class="price_container">
+									<span class="price">$1000</span>
+									<span class="description">Per Month</span>
+								</div>
+
+								<div class="features">
+									<span class="tier5red"><strong>100,000</strong></span> One-Time Credits
+									<br> <span class="tier5red"><strong>15,000</strong></span> Monthly Credits
+									<br> -----------
+									<br> $10 per extra 1K credits </div>
+
+								<div class="table_button">
+
+									<a href="#" id="enterprise-plan">Buy Now</a><form method = 'POST'>{% csrf_token %} <input class="hidden" id="enterprise-payment" name="confirmed" value="100000"></form>
+								</div>
+
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	
+	<form  method="POST" id="csv-form"> {% csrf_token %}	
+	<script 
+			src="https://checkout.stripe.com/checkout.js" 
+			data-key="pk_live_dOwIuwJIzpJSQrgYCPDNgUy1" 
+			data-image="https://s3.amazonaws.com/stripe-uploads/acct_14af5MD1OWXzqFQzmerchant-icon-1422557219941-Tier5Logo.png" 
+			data-name="Pro" 
+			data-description="Complete CSV Analysis" 
+			data-amount="{{to_add}}">
+	</script>
+	<script 
+			src="https://checkout.stripe.com/checkout.js" 
+			data-key="pk_live_dOwIuwJIzpJSQrgYCPDNgUy1" 
+			data-image="https://s3.amazonaws.com/stripe-uploads/acct_14af5MD1OWXzqFQzmerchant-icon-1422557219941-Tier5Logo.png" 
+			data-name="Small Business" 
+			data-description="Complete CSV Analysis" 
+			data-amount="{{to_add}}">
+	</script>
+	<script 
+			src="https://checkout.stripe.com/checkout.js" 
+			data-key="pk_live_dOwIuwJIzpJSQrgYCPDNgUy1" 
+			data-image="https://s3.amazonaws.com/stripe-uploads/acct_14af5MD1OWXzqFQzmerchant-icon-1422557219941-Tier5Logo.png" 
+			data-name="Enterprise" 
+			data-description="Complete CSV Analysis" 
+			data-amount="{{to_add}}">
+	</script>
+	
+				
+	<script>
+		var charge_amount = "";
+		var handler = StripeCheckout.configure({
+			key: 'pk_live_dOwIuwJIzpJSQrgYCPDNgUy1',
+			email: '{{request.user.email}}',
+			allowRememberMe: false,
+			image: 'https://s3.amazonaws.com/stripe-uploads/acct_14af5MD1OWXzqFQzmerchant-icon-1422557219941-Tier5Logo.png',
+			token: function (token, args) {
+				$.ajax({
+			       type: "POST",
+			       dataType: "json", 
+			       data: {token: token.id, confirmed: charge_amount, csrfmiddlewaretoken: '{{ csrf_token }}'},
+			    })
+			    .success(function(){
+					alert("sucess");
+			       	window.location.replace("{% url 'dashboard.views.email_dashboard' %}");
+			    })
+			    .fail(function(){
+					alert("fail");
+			    	window.location.replace("{% url 'dashboard.views.email_dashboard' %}");
+			    })
+			}
+		});
+		$('#pro-plan').on('click', function (e) {
+			charge_amount = document.getElementById("pro-payment").value;
+			// Open Checkout with further options
+			handler.open({
+				name: 'Pro Plan',
+				description: '11,000 Yearly Credits',
+				amount: charge_amount
+			});
+			e.preventDefault();
+		});
+		$('#small-biz-plan').on('click', function (e) {
+			charge_amount = document.getElementById("small-biz-payment").value;
+			// Open Checkout with further options
+			handler.open({
+				name: 'Small Business Plan',
+				description: '62,000 Yearly Credits',
+				amount: charge_amount
+			});
+			e.preventDefault();
+		});
+		$('#enterprise-plan').on('click', function (e) {
+			charge_amount = document.getElementById("enterprise-payment").value;
+			// Open Checkout with further options
+			handler.open({
+				name: 'Enterprise Plan',
+				description: '280,000 Yearly Credits',
+				amount: charge_amount
+			});
+			e.preventDefault();
+		});
+
+		// Close Checkout on page navigation
+		$(window).on('popstate', function () {
+			handler.close();
+		});
+
+	jQuery(function($) {
+     $('#csv-form').submit(function(e) {
+       var $form = $(this);
+
+       // Disable the submit button to prevent repeated clicks
+       $form.find('button').prop('disabled', true);
+
+       Stripe.card.createToken($form, stripeResponseHandler);
+
+       // Prevent the form from submitting with the default action
+       return false;
+     });
+   });
+</script>
+</form>
+
+
+</body>
+
+
+</html>

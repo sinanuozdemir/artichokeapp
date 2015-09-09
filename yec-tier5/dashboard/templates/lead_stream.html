@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+	<link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
+	<link rel="icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="Dashboard">
+	<meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+	<title>Legion Analytics-People Analytics</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+	<!--external css-->
+	<link href="{% static "font-awesome/css/font-awesome.css"%}" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="{% static "css/zabuto_calendar.css"%}">
+	<link rel="stylesheet" type="text/css" href="{% static "js/gritter/css/jquery.gritter.css" %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static "lineicons/style.css"%}">
+
+	<!-- Custom styles for this template -->
+	<link href="{% static "css/style_influencers.css"%}" rel="stylesheet">
+	<link href="{% static "css/vanessaUX.css"%}" rel="stylesheet">
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-62659538-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+	
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+	<section id="container">
+
+		<header class="header black-bg">
+			<a href="" class="logo"><b>Legion</b> Analytics</a>
+			<a href="/legion/dashboard" class="dashTab"><span>Inbound</span></a>
+			<a href="/legion/lead_stream" class="leadTab tabSelected"><span>Outbound</span></a>
+			<a href="/legion/my_account" class="settings-tab"><i class="fa fa-cog"></i></a>
+		</header>
+		
+		<!--This is the left side where the streams will take place-->
+		<div class="targetStream">
+			<a href="#"><div class="deleteTM" data-target=".deleteForever" data-toggle="modal">DELETE</div></a>
+			<div class="targetMarkets">
+				<span class="tm tm1 tmActive" id="{{tm.id}}">{{tm.name}}</span>
+				{% for targ in tms %}
+				<a href="/legion/lead_stream/{{targ.id}}" class="tm tm{{forloop.counter|add:"1"}} tmInactive" id={{targ.id}}>{{targ.short_name}}</a>
+				{% endfor %}
+				<form method="post">{% csrf_token %}
+				<button type="submit" class="btn btn-default btn-sm lead-export" name="export_leads" value="submit"><span><i class="glyphicon glyphicon-export"></i></span>Export Leads</button></form>
+			</div>
+			<div class="query">{{tm.description}}</div>
+		</div>
+		
+		<!--target market load button-->
+		<a href="#"><div class="tier5-btn addTargetMarketBtn" data-target=".bs-example-modal-lg" data-toggle="modal">Add Target Market</div></a>
+		
+		
+		<!-- Load More Leads!!!!-->
+		<form method="POST" id="autoRefresh">{% csrf_token %}<div class="loadMoreLeads" id="loadMoreLeads">View {{new_con}} new Leads</div></form>
+		
+		<!--Start of new leads-->
+		<div class="leadStream" id="leadStream">
+			{% for person, dict in people.items %}
+			{% if not dict.new_lead %}
+			<div class="newOutboundLead" id="{{person}}">
+				<img class="leadPhoto" {% if dict.person__saved_photo %} src="https://s3-us-west-2.amazonaws.com/tier5/{{dict.person__saved_photo}}" {% else %} src="https://s3-us-west-2.amazonaws.com/tier5/img/redlogotier5.svg" {% endif %}  />
+				<div class="leadName">{{dict.person__name}} <span>became a lead for {{tm.name}}</span></div>
+				{% if dict.message__opened %}
+				<div class="leadTimeStamp"><i class="fa fa-eye" style="color: #cd6562;font-size: 14px;"></i><span class="emailMsg">&nbsp;&nbsp;Viewed {% if dict.message__subject %}"{{dict.message__subject}}"{% else %}(No Subject){% endif %}</span></div>
+				{% elif dict.message%}
+				<div class="leadTimeStamp"><i class="fa fa-send-o" style="color: #667e9f;font-size: 14px;"></i><span class="emailMsg">&nbsp;&nbsp;You sent {% if dict.message__subject %}"{{dict.message__subject}}"{% else %}(No Subject){% endif %}</span></div>
+				{% endif %} 
+
+			</div>
+			{% endif %}
+			{% endfor %}			
+								
+		</div>
+		
+		
+		
+		
+		
+		<div class="rightSideLead emailBox">
+			<div class="emailHeader"><span>&times;</span></div>
+			<form method="post" class="emailContainer" id="sendEmailForm"> {% csrf_token %}
+					<select form="sendEmailForm" class="emailRow toField" name="emailTo">
+
+					</select>
+					<select form="sendEmailForm" class="emailRow fromField" name="emailFrom">
+
+					</select>
+					<input type="text" placeholder="Subject:" name="emailSubject" id="emailSubject" class="emailRow subjectField"/>
+				<div class="bodyContainer">
+					<textarea name="emailBody" placeholder="Body (Required)" class="subjectField" id="emailBody"></textarea>
+				</div>
+				<div class="emailFooter">
+				<button type="submit" class="whiteBtn emailFooterButton"><i class="fa fa-send-o"></i> &nbsp;&nbsp;Send Email</button>
+				</div>
+			</form>
+		
+		</div>
+		
+		
+		
+		
+		<div class="rightSideLead hidden">
+			<img class="bigLeadPhoto" src="https://s3-us-west-2.amazonaws.com/tier5/img/redlogotier5.svg"/>
+			<div class="bigLeadName"></div>
+			<div class="bigJobTitle">
+				<span id="putmehere"></span>
+				<span class="personSocialMedia" id="personSocialMedia"></span>	
+			</div>			
+			<div class="bigAge"></div>
+			<div class="bigLocation"></div>
+			<div class="bigWebsite"></div>
+			<div class="bigEmail"></div>
+			<div class="bigKlout"></div>
+
+			<div class="whiteBtn emailButton"><i class="fa fa-send-o"></i> &nbsp;&nbsp;Send Email</div>
+			<div class="bigCompanyName">
+				<span id="yoputmehere"></span>
+				<div class="companySocialMedia" id="companySocialMedia"></div>
+			</div>
+			<div>
+				<div class="bigCompanyLocation"></div>
+				<div class="bigCompanyWebsite"><a href="" target="_blank"></a></div>
+				<div class="bigCompanyIndustry"></div>
+				<div class="bigCompanyEmployees"></div>
+				<div class="bigCompanyRevenue"></div>
+				<div class="bigCompanyFunding"></div>
+			</div>
+		</div>
+		
+		
+		<div class="errorMsg hidden"><i class="fa fa-warning"></i> We're having trouble connecting to Legion Analytics.</div>
+		<div class="successMsg hidden"><i class="fa fa-bell-o"></i> We're back!</div>
+		
+		
+		<div class="modal fade deleteForever" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-sm">
+				<form method="post" id="deleteTargetMarket"> {% csrf_token %}
+					<div class="modal-content">
+						<div class="modal-header" id="deleteModalHeader">
+							<button type="button" class="close deleteClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title deleteHeader" id="gridSystemModalLabel">DELETE {{tm.name}}?</h4>
+							<p class="warningSentence">This cannot be undone.</p>
+						</div>
+						<div class="leadTargetMarketForm">
+							<div class="insideTMForm">
+								<label class="deleteLabel">Type DELETE to delete "{{tm.name}}"</label>
+								<input type="text" name="activeTM" value="{{tm.name}}" class="hidden"/>
+								<input type="text" class="deleteInput" name="DELETE" id="deleteInput"/>
+								<div class="deleteFooter">
+										<button type="submit" class="btn-delete">Delete Forever</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		
+		<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div class="targetMarketNotification targetNameError"><i class="fa fa-exclamation"></i> Please name your target market.</div>
+				<div class="targetMarketNotification targetJobError"><i class="fa fa-exclamation"></i> Please add a job title to your target market.</div>
+				<div class="targetMarketNotification targetSuccess"><i class="fa fa-bell"></i> Success! Adding Now.</div>
+				<div><img class="clippy" src="https://s3-us-west-2.amazonaws.com/tier5/img/redlogotier5.svg"/></div>
+				<div class="thoughtBox1"></div>
+				<div class="thoughtBox2"></div>
+				<div class="thoughtBox3">Tell us about your<br>target market! These<br>are the people you will see<br>in your lead stream everyday.<br>Don’t worry! You can add<br>more people later if you<br>target multiple people.
+</div>
+				<form method="post" id="newTargetMarketForm"> {% csrf_token %}
+					<div class="modal-content">
+						<div class="modal-header" id="leadModalHeader">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title leadModalTitle" id="gridSystemModalLabel"><input name="name" type="text" class="leadTargetMarketName" id ="leadTargetMarketName" placeholder="Click Here To Name Your Target Market *" required/></h4>
+						</div>
+						<div class="leadTargetMarketForm">
+							<div class="insideTMForm">
+								<input name="job_title" class="tmjt" id="tmjt" type="text" placeholder="JOB TITLE *" required/>
+								<input name="location" class="tml" type="text" placeholder="LOCATION"/>
+								<label class="targetMarketAge">AGE RANGE</label>
+								<input name="age_min" class="tmamin" type="number" placeholder="min"/>
+								<input name="age_max" class="tmamax" type="number" placeholder="max"/>
+								<label class="targetMarketRevenue">COMPANY REVENUE</label>
+								<input name="revenue_min" class="tmrmin" type="number" placeholder="min"/>
+								<input name="revenue_max" class="tmrmax" type="number" placeholder="max"/>
+								<label class="targetMarketFunding">COMPANY FUNDING</label>
+								<input name="funding_min" class="tmfmin" type="number" placeholder="min"/>
+								<input name="funding_max" class="tmfmax" type="number" placeholder="max"/>
+								<label class="targetMarketIndustry">INDUSTRY</label>
+								<select name="industries" class="tmi" multiple form="newTargetMarketForm">
+									<option>Advertising</option>
+									<option>Apparel &amp; Fashion</option>
+									<option>Beauty Professionals</option>
+									<option>Computer Software</option>
+									<option>Consumer Goods</option>
+									<option>Consumer Services</option>
+									<option>Curated Web</option>
+									<option>E-commerce</option>
+									<option>Enterprise Software</option>
+									<option>Entertainment</option>
+									<option>Financial Services</option>
+									<option>Games</option>
+									<option>Health & Fitness</option>
+									<option>Higher Education</option>
+									<option>Home & Repair Services</option>
+									<option>Information Technology and Services</option>
+									<option>Internet</option>
+									<option>Leisure & Entertainment</option>
+									<option>Marketing and Advertising</option>
+									<option>Mobile</option>
+									<option>Nonprofit Organization Management</option>
+									<option>Professional Services</option>
+									<option>Real Estate</option>
+									<option>Restaurants</option>
+									<option>Retail</option>
+									<option>Social Media</option>
+									<option>Software</option>
+									<option>Transportation</option>
+								</select>
+								<div class="checkboxHolder">
+								<label class="targetMarketEmail">EMAIL</label>
+								<input type="checkbox" class="targetMarketEmailCheckbox" name="email"/>
+								<label class="targetMarketTwitter">TWITTER</label>
+								<input type="checkbox" class="targetMarketTwitterCheckbox" name="personal_twitter"/>
+								<label class="targetMarketFacebook">FACEBOOK</label>
+								<input type="checkbox" class="targetMarketFacebookCheckbox" name="personal_facebook"/>
+								<label class="targetMarketLinkedin">LINKEDIN</label>
+								<input type="checkbox" class="targetMarketLinkedinCheckbox" name="personal_linkedin"/>
+								<label class="targetMarketCoWebsite">COMPANY WEBSITE</label>
+								<input type="checkbox" class="targetMarketCoWebsiteCheckbox" name="company_website"/>
+								</div>
+								
+								<div class="targetMarketFooter">
+										<button type="submit" class="btn-tmadd">Add Target Market</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+			
+		
+	</section>
+
+	<!-- js placed at the end of the document so the pages load faster -->
+	<script src="{% static "js/jquery.js" %}"></script>
+	<script src="{% static "js/jquery-1.8.3.min.js" %}"></script>
+	
+	<script src="{% static "js/bootstrap.min.js" %}"></script>
+	<script class="include" type="text/javascript" src="{% static "js/jquery.dcjqaccordion.2.7.js" %}"></script>
+	<script src="{% static "js/jquery.scrollTo.min.js" %}"></script>
+	<script src="{% static "js/jquery.nicescroll.js" %}" type="text/javascript"></script>
+	<script src="{% static "js/jquery.sparkline.js" %}"></script>
+
+
+	<!--common script for all pages-->
+	<script src="{% static "js/common-scripts.js" %}"></script>
+
+	<script type="text/javascript" src="{% static "js/gritter/js/jquery.gritter.js" %}" ></script>
+	<script type="text/javascript" src="{% static "js/gritter-conf.js" %}"></script>
+
+	<!--script for this page-->
+	<script src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			
+			var start = $(".tm1")[0].innerHTML;
+			if(start == ""){
+				window.setTimeout(function(){
+					$(".addTargetMarketBtn").trigger("click");
+				},500);
+			}
+			
+			$(".targetStream").hover(function(){
+				$(".deleteTM").fadeIn(500);
+			});
+			$(".newOutboundLead").hover(function(){
+				$(".deleteTM").fadeOut(500);
+			});
+			$(".rightSideLead").hover(function(){
+				$(".deleteTM").fadeOut(500);
+			});
+			
+		});
+		
+	</script>
+	<script>
+		
+		window.setInterval(function(){
+				$.ajax({
+					type: "post",
+					data: {"serverCheck": "true"},
+				})
+				.done(function(e){	
+					if($(".errorMsg").hasClass("hidden")){
+				
+					}else{
+					$(".successMsg").removeClass("hidden");
+					$(".errorMsg").addClass("hidden");
+					}
+				})
+				.fail(function(e){
+					$(".errorMsg").removeClass("hidden");
+				})
+				.complete(function(e){
+					window.setTimeout(function(){
+						$(".successMsg").addClass("hidden");
+					},1000);
+				})
+			
+		}, 3000);
+	</script>
+		
+	</script>
+	<script>
+	{% if is_google_authenticated %}
+		var isAuthenticated = true;
+		{% else %}
+		var isAuthenticated = false;
+		{% endif %}
+			$(".emailButton").on("click", function(){
+				if(isAuthenticated){
+					$(".emailMsg").fadeOut(300);
+					$(".leadName").fadeOut(300);
+					$(".emailBox").fadeIn(50);
+					$(".newOutboundLead").animate({
+						left: "0",
+						width: "50px",
+						overflow: "inherit",
+					}, 500);
+					$(".leadTimeStamp").animate({
+						backgroundColor: "#f8f8f8 !important",
+						padding: "5px",
+						width: "24px",
+						left: "50px",
+						top: "34px",
+					}, 500);
+					$(".loadMoreLeads").animate({
+						left: "0",
+						width: "50px",
+					},500);
+					$(".emailBox").animate({
+						left: "100px",
+					}, 500);
+				}else{
+					window.open("https://accounts.google.com/o/oauth2/auth?access_type=offline&client_id=994895035422-bes5cqbhmf140j906598j1q91pvcnn08.apps.googleusercontent.com&response_type=code&scope=https://mail.google.com/ https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/gmail.modify email profile&redirect_uri=http://legionanalytics.com/google/success&approval_prompt=force",'_parent');
+				}
+			});
+	</script>
+	<script>
+		$(".emailFooterButton").on("click",function(event){
+			event.preventDefault();
+			var isBlank = document.getElementById("emailBody").value;
+			if(isBlank == ""){
+				$("#emailBody").css({
+					border: "1px #cd6562 solid",
+				});
+				setTimeout(function () {
+					$("#emailBody").css({
+						border: "none",
+						animation: "none",
+					});
+				}, 500);
+			}else{
+				$(".emailFooterButton").html('<i class="fa fa-send-o"></i> &nbsp;&nbsp;Sending...');
+				$.ajax({
+					type: "post",
+					data: $("#sendEmailForm").serialize(),
+				})
+				.done(function(e){
+					$(".emailFooterButton").html('<i class="fa fa-send-o"></i> &nbsp;&nbsp;Sent!');
+					$("#emailSubject").val("");
+					$("#emailBody").val("");
+					$(".emailFooterButton").css({
+						borderColor: "#84c682",
+						backgroundColor: "#bce5ba",
+						color: "#3b3b3b",
+					});
+				})
+				.fail(function(e){
+					$(".errorMsg").removeClass("hidden");
+				})
+				.complete(function(e){
+					window.setTimeout(function(){
+						$(".emailFooterButton").html('<i class="fa fa-send-o"></i> &nbsp;&nbsp;Send Email');
+						$(".emailFooterButton").css({
+						border: "",
+						backgroundColor: "",
+						color: "",
+						});
+					},2000);
+
+				})
+			}
+		});
+	</script>
+	<script>
+		$(".emailHeader>span").on("click", function(){
+			$(".newOutboundLead").animate({
+				left: "60px",
+				width: "590px",
+			}, 500);
+			window.setTimeout(function(){
+				$(".emailMsg").fadeIn(200);
+				$(".leadName").fadeIn(200);
+			},200);
+			
+			$(".leadTimeStamp").animate({
+				position: "absolute",
+				fontSize: "11px",
+				color: "#959595",
+				top: "30px",
+				left: "60px",
+				width: "300px",
+				padding: "",
+				backgroundColor: "transparent !important",
+				overflow: "inherit !important",
+			}, 500);
+			
+			$(".emailBox").animate({
+				left: "700px",
+			}, 500);
+			$(".loadMoreLeads").animate({
+				left: "60px",
+				width: "590px",
+			},500);
+			$(".emailBox").fadeOut(50);
+		});
+	</script>
+	<!--<script>
+		$(document).ready(function(){
+			$(".rightSideLead").hover(function(){
+			},
+			function(){
+				$(".tweetButton").fadeOut(100);
+			});
+		});
+		$(".dropdownTweet").on("click", function(){
+			$(".tweetButton").fadeIn(100);
+		});
+	</script>-->
+	<script>
+		$(".btn-delete").on("click", function(event){
+			var input = document.getElementById("deleteInput").value;
+			if(input != "DELETE"){
+				event.preventDefault();
+				$("#deleteInput").css({
+					border: "2px red solid",
+					animation: "invalid .2s linear",
+				});
+				setTimeout(function () {
+					$("#deleteInput").css({
+						border: "none",
+						animation: "none",
+					});
+					$("#deleteInput").val("");
+				}, 500);
+				
+			}
+		})
+	</script>
+	<script>
+		function makeLeadDiv(people, ol, tm_name) {
+			var photo = "https://s3-us-west-2.amazonaws.com/tier5/img/redlogotier5.svg";
+			if (people[ol].person__saved_photo) {
+				photo = "https://s3-us-west-2.amazonaws.com/tier5/"+people[ol].person__saved_photo
+			}
+			tm_name = "{{tm.name}}";
+			var name = people[ol].person__name;
+			var isHere = $(".emailBox").attr("style");
+			if(isHere == "undefined" || isHere == undefined || isHere=="display: none; left: 700px;"){	
+				return '<div class="newOutboundLead" id=' + ol + '><img class="leadPhoto"  src="' + photo + '" /><div class="leadName">' + name + ' <span>became a lead for '+tm_name+'</span></div></div>';
+			}else{
+				return '<div class="newOutboundLead" id=' + ol + ' style="overflow: hidden; left: 0px; width: 50px;"><img class="leadPhoto"  src="' + photo + '" /><div class="leadName">' + name + ' <span>became a lead for '+tm_name+'</span></div></div>';
+			}
+		}
+			function checkKey(key, d) {
+				if (key in d && d[key] != '' && d[key] != null) {
+					return d[key];
+				}
+				return "Unknown";
+			}
+			$("#leadStream").on("click", ".newOutboundLead", function(){
+				$(".rightSideLead").removeClass("hidden");
+				var people = {{ people_json|safe }};
+				var ol = $(this).attr("id");
+				var photo = $("#"+ol+" > .leadPhoto").attr("src");
+				$(".bigLeadPhoto").prop("src",photo);
+				olName = people[ol].person__name;
+				olName = olName.substring(0,18);
+				$(".bigLeadName").text(olName);
+				$(".bigCompanyLocation").text("Location: "+people[ol].job__company__location);
+				if(checkKey('job__company__company_home_page', people[ol])!="Unknown"){
+				$(".bigCompanyWebsite").html("<a href='http://www."+checkKey('job__company__company_home_page', people[ol])+"' target='_blank'>Website: "+checkKey('job__company__company_home_page', people[ol])+"</a>");
+				}else{
+				$(".bigCompanyWebsite").text("Website: " + checkKey('job__company__company_home_page', people[ol]));
+				}
+				$(".bigCompanyIndustry").text("Industries: "+checkKey('job__company__industries__name', people[ol]));
+				$(".bigCompanyRevenue").text("Revenue: $"+checkKey('job__company__revenue', people[ol]));
+				$(".bigCompanyFunding").text("Funding: $"+checkKey('job__company__funding', people[ol]));
+				$(".bigCompanyEmployees").text("Employee Count: "+checkKey('job__company__number_of_employees', people[ol]));
+				var short = checkKey('job__company__name', people[ol]);
+				var shortCo = short.substring(0, 30);
+				var amp = shortCo.indexOf("&amp;");
+				if (amp != -1){
+					var shortCo = shortCo.substring(0,amp) + " & " + shortCo.substring(amp+5,30);
+				}
+				$("#yoputmehere").text(shortCo);
+
+				//$(".bigTwitSummary").text(checkKey('person__twitter_bio', people[ol]));
+				$(".bigLocation").text("Location: "+checkKey('person__location', people[ol]));
+				$(".bigKlout").text("Klout Score: "+checkKey('person__klout_score', people[ol]));
+				$(".bigAge").text("Age: "+checkKey('person__age', people[ol]));
+				$(".bigEmail").text("Email: "+checkKey('person__emailaddress__address', people[ol]));
+				$(".toField").html("<option value='"+checkKey('person__emailaddress__address', people[ol])+"'>To: "+checkKey('person__emailaddress__address', people[ol])+"</option>");
+				$(".fromField").html("<option value='{{request.user.google_auth_email}}'>From: {{request.user.google_auth_email}}</option>");
+
+				var job_text = checkKey('job__title', people[ol]) + ' at ' + checkKey('job__company__name', people[ol]);
+				if(checkKey('person__personal_home_page', people[ol])!="Unknown"){
+					$(".bigWebsite").html("<a href='http://www."+checkKey('person__personal_home_page', people[ol])+"' target='_blank'>Website: "+checkKey('person__personal_home_page', people[ol])+"</a>");
+				}else{
+					$(".bigWebsite").text("Website: " + checkKey('person__personal_home_page', people[ol]));
+				}
+
+
+	var person_social_media = "";
+	var tw = checkKey('person__personal_twitter', people[ol]);
+	if (tw != 'Unknown') {
+	//	document.getElementById('tweetBox').removeAttribute('readonly');
+	person_social_media += '<a href="http://www.twitter.com/'+tw+'" target="_blank"><i class="fa fa-twitter bigSmIcon"></i></a>'}
+	var t = checkKey('person__personal_linkedin', people[ol]);
+	if (t != 'Unknown') {
+	person_social_media += '<a href="http://www.linkedin.com/'+t+'" target="_blank"><i class="fa fa-linkedin bigSmIcon"></i></a>'};
+	var t = checkKey('person__personal_facebook', people[ol]);
+	if (t != 'Unknown') {
+	person_social_media += '<a href="http://www.facebook.com/'+t+'" target="_blank"><i class="fa fa-facebook bigSmIcon"></i></a>'};
+	$("#personSocialMedia").html(person_social_media);
+
+	var person_social_media = "";
+	var t = checkKey('job__company__company_twitter', people[ol]);
+	if (t != 'Unknown') {
+	person_social_media += '<a href="http://www.twitter.com/'+t+'" target="_blank"><i class="fa fa-twitter bigSmIcon"></i></a>';
+	}
+	var t = checkKey('job__company__company_linkedin', people[ol]);
+	if (t != 'Unknown') {
+	person_social_media += '<a href="http://www.linkedin.com/'+t+'" target="_blank"><i class="fa fa-linkedin bigSmIcon"></i></a>';
+	}
+	var t = checkKey('job__company__company_facebook', people[ol]);
+	if (t != 'Unknown') {
+	person_social_media += '<a href="http://www.facebook.com/'+t+'" target="_blank"><i class="fa fa-facebook bigSmIcon"></i></a>';
+	}
+	if (person_social_media == ""){
+	person_social_media += '<i class="fa fa-facebook bigSmIcon invisible"></i>';
+	}
+
+	$("#companySocialMedia").html(person_social_media);
+				var jobLength = job_text.length;
+				var shortJobTitle = job_text.substring(0,32);
+				if(jobLength > 32){
+					$("#putmehere").text(shortJobTitle + "...");
+				}else{
+					$("#putmehere").text(shortJobTitle);
+				}
+
+				$("#companySocialMedia").html(person_social_media);
+			});
+	</script>
+
+	<script>
+		$(".btn-tmadd").on("click",function(button){
+			button.preventDefault();
+			var ltmn = document.getElementById("leadTargetMarketName").value;
+			var tmjt = document.getElementById("tmjt").value;
+			var cap = $(".tm8").length;
+			if(cap=="0" || cap == 0){
+				if(ltmn == ""){
+					$(".targetNameError").fadeIn(200);
+				}else if(tmjt == ""){
+					$(".targetJobError").fadeIn(200);
+				}else{
+					$(".targetSuccess").fadeIn(200);
+					$.ajax({
+							type: "post",
+							data: $("#newTargetMarketForm").serialize(),
+					})
+					.done(function(e) {
+						$("input").val("");
+						$("input[type='checkbox']").prop("checked", false);
+						$(".modal").modal('hide');
+						location.reload();
+					})
+					.fail(function(e){
+						$(".errorMsg").removeClass("hidden");
+					})
+
+				}
+			}else{
+				alert("You can only have 8 target markets. Please delete one before adding another.");
+				$(".close").trigger("click");
+				
+			}
+		});
+	</script>
+	<script>
+			$(document).ready(function(){
+				var newb;
+				var tmId = $(".tmActive").attr("id");
+				if(tmId != ""){
+					$.ajax({
+							url: "/legion/updated_lead_stream/",
+							type: "post",
+							data: { 'target_market_id': tmId },
+						})
+						.done(function(e){
+							if (e.new_con != "0" || e.new_con != 0){
+								$("#loadMoreLeads").fadeIn(200);
+								$(".loadMoreLeads").text("View "+e.new_con+" new Leads");
+								$("title").text("("+e.new_con+") Legion Analytics-People Analytics");
+							}else{
+								$("#loadMoreLeads").fadeOut(200);
+								$("title").text("Legion Analytics-People Analytics");
+							}
+							
+
+							newb = e.people;
+						})
+						.fail(function(e){
+							$(".errorMsg").removeClass("hidden");
+						})
+					window.setInterval(function(){
+						$.ajax({
+							url: "/legion/updated_lead_stream/",
+							type: "post",
+							data: { 'target_market_id': tmId },
+						})
+						.done(function(e){
+							if (e.new_con != "0" || e.new_con != 0){
+								$("#loadMoreLeads").fadeIn(200);
+								$(".loadMoreLeads").text("View "+e.new_con+" new Leads");
+								$("title").text("("+e.new_con+") Legion Analytics-People Analytics");
+							}else{
+								$("#loadMoreLeads").fadeOut(200);
+								$("title").text("Legion Analytics-People Analytics");
+							}
+							newb = e.people;
+						})
+						.fail(function(e){
+							$(".errorMsg").removeClass("hidden");
+						})
+					},600000);
+						$(".loadMoreLeads").on("click", function(button){
+								$.ajax({
+										type: "post",
+										data: {'clicked_new':true},
+								})
+								.done(function(e) {
+									for (var person_id in newb){
+										if (newb[person_id].new_lead){
+											$("#leadStream").prepend(makeLeadDiv(newb, person_id, ""));
+										}
+									};
+									document.getElementById('loadMoreLeads').style.display = 'none';
+									$("title").text("Legion Analytics-People Analytics");
+									newb = "";
+								})
+								.fail(function(e){
+									$(".errorMsg").removeClass("hidden");
+								})
+								button.preventDefault();
+							});
+				
+				}
+			});
+	</script>
+</body>
+
+</html>

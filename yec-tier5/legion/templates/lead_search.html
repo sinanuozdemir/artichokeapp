@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en" id="html">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Tier5 - Lead Generation</title>
+
+	<!-- Bootstrap Core CSS -->
+	 <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link href="{% static "css/plugins/dataTables.bootstrap.css" %}" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="{% static "css/main.css" %}" />
+
+</head>
+
+<body>
+
+
+
+
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<section>
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+
+				<a class="navbar-brand" href="/home" id="logo">
+					<img src="{% static "Icons/Base/tier5_logo.png" %}">
+				</a><p id="leads_left" ></p>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="container">
+
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="/lead_management" class="navbar-brand" id="LM-wrap">
+							<img src="{% static "Icons/Base/leadManagement_tab.png" %}" class="nav-icons">
+							<p id="LM">Lead Management</p>
+						</a>
+					</li>
+					<li>
+						<a class="navbar-brand" id="LG-wrap" href="/home">
+							<img src="{% static "Icons/Base/leadGeneration_tab.png" %}" class="nav-icons">
+							<p id="LG">Lead Generation</p>
+						</a>
+					</li>
+					
+					<li>
+						<a class="navbar-brand" id="settings-wrap" href="/account">
+							<img src="{% static "Icons/Base/settings_tab.png" %}" class="nav-icons">
+							<p id="ss">Account</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</section>
+		<!-- /.container -->
+	</nav>
+
+
+
+
+
+
+
+
+	<!-- Page Content -->
+	<div class="container">
+
+		<div class="row">
+			<br>
+			<div class="col-sm-3 text-left">
+				<form method="POST" name="test"> {% csrf_token %}
+					<div class="panel-group" id="accordion">
+						<div class="panel panel-default">
+							<div class="panel-heading" id="top-container">
+								<h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Job Title<img src= "{% static "Icons/Lead Generation/down_arrow.png"%}"  id="company-size"><br></a>
+                            </h4>
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse">
+								<div class="panel-body">
+									<input id="q" name="personal_title" class="form-control input-sm" type="text" placeholder="VP of Sales" autocomplete="off">
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Location<img src= "{% static "Icons/Lead Generation/down_arrow.png"%}"   id="location-search"></a>
+                            </h4>
+							</div>
+							<div id="collapseTwo" class="panel-collapse collapse">
+								<div class="panel-body">
+									<input name="personal_location" class="form-control input-sm" placeholder="San Francisco">
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Industry Experience<img src= "{% static "Icons/Lead Generation/down_arrow.png"%}"  id="revenue-search"></a>
+                            </h4>
+							</div>
+							<div id="collapseThree" class="panel-collapse collapse">
+								<div class="panel-body">
+									<label>Years</label>
+									<select name="industryExperience" name = "experience" class="form-control input-sm">
+										<option value="" selected>Select One</option>
+										<option>Less than 1</option>
+										<option>1-2</option>
+										<option>2-3</option>
+										<option>3-5</option>
+										<option>5-10</option>
+										<option>10+</option>
+									</select>
+									<br>
+									<label>Specify Industry</label>
+									<select name="industryType" class="form-control input-sm">
+										<option value="" selected>Select One</option>
+										<option>Accounting</option>
+										<option>Airlines/Aviation</option>
+										<option>Alternative Dispute Resolution</option>
+										<option>Alternative Medicine</option>
+										<option>Animation</option>
+										<option>Apparel &amp; Fashion</option>
+										<option>Architecture &amp; Planning</option>
+										<option>Arts &amp; Crafts</option>
+										<option>Automotive</option>
+										<option>Aviation &amp; Aerospace</option>
+										<option>Banking</option>
+										<option>Biotechnology</option>
+										<option>Broadcast Media</option>
+										<option>Building Materials</option>
+										<option>Business Supplies &amp; Equipment</option>
+										<option>Capital Markets</option>
+										<option>Chemicals</option>
+										<option>Civic &amp; Social Organization</option>
+										<option>Civil Engineering</option>
+										<option>Commercial Real Estate</option>
+										<option>Computer &amp; Network Security</option>
+										<option>Computer Games</option>
+										<option>Computer Hardware</option>
+										<option>Computer Networking</option>
+										<option>Computer Software</option>
+										<option>Construction</option>
+										<option>Consumer Electronics</option>
+										<option>Consumer Goods</option>
+										<option>Consumer Services</option>
+										<option>Cosmetics</option>
+										<option>Dairy</option>
+										<option>Defense &amp; Space</option>
+										<option>Design</option>
+										<option>Education Management</option>
+										<option>E-Learning</option>
+										<option>Electrical/Electronic Manufacturing</option>
+										<option>Entertainment</option>
+										<option>Environmental Services</option>
+										<option>Events Services</option>
+										<option>Executive Office</option>
+										<option>Facilities Services</option>
+										<option>Farming</option>
+										<option>Financial Services</option>
+										<option>Fine Art</option>
+										<option>Fishery</option>
+										<option>Food &amp; Beverages</option>
+										<option>Food Production</option>
+										<option>Fund-Raising</option>
+										<option>Furniture</option>
+										<option>Gambling &amp; Casinos</option>
+										<option>Glass, Ceramics &amp; Concrete</option>
+										<option>Government Administration</option>
+										<option>Government Relations</option>
+										<option>Graphic Design</option>
+										<option>Health, Wellness &amp; Fitness</option>
+										<option>Higher Education</option>
+										<option>Hospital &amp; Health Care</option>
+										<option>Hospitality</option>
+										<option>Human Resources</option>
+										<option>Import &amp; Export</option>
+										<option>Individual &amp; Family Services</option>
+										<option>Industrial Automation</option>
+										<option>Information Services</option>
+										<option>Information Technology &amp; Services</option>
+										<option>Insurance</option>
+										<option>International Affairs</option>
+										<option>International Trade &amp; Development</option>
+										<option>Internet</option>
+										<option>Investment Banking</option>
+										<option>Investment Management</option>
+										<option>Judiciary</option>
+										<option>Law Enforcement</option>
+										<option>Law Practice</option>
+										<option>Legal Services</option>
+										<option>Legislative Office</option>
+										<option>Leisure, Travel &amp; Tourism</option>
+										<option>Libraries</option>
+										<option>Logistics &amp; Supply Chain</option>
+										<option>Luxury Goods &amp; Jewelry</option>
+										<option>Machinery</option>
+										<option>Management Consulting</option>
+										<option>Maritime</option>
+										<option>Market Research</option>
+										<option>Marketing &amp; Advertising</option>
+										<option>Mechanical or Industrial Engineering</option>
+										<option>Media Production</option>
+										<option>Medical Devices</option>
+										<option>Medical Practice</option>
+										<option>Mental Health Care</option>
+										<option>Military</option>
+										<option>Mining &amp; Metals</option>
+										<option>Motion Pictures &amp; Film</option>
+										<option>Museums &amp; Institutions</option>
+										<option>Music</option>
+										<option>Nanotechnology</option>
+										<option>Newspapers</option>
+										<option>Non-Profit Organization Management</option>
+										<option>Oil &amp; Energy</option>
+										<option>Online Media</option>
+										<option>Outsourcing/Offshoring</option>
+										<option>Package/Freight Delivery</option>
+										<option>Packaging &amp; Containers</option>
+										<option>Paper &amp; Forest Products</option>
+										<option>Performing Arts</option>
+										<option>Pharmaceuticals</option>
+										<option>Philanthropy</option>
+										<option>Photography</option>
+										<option>Plastics</option>
+										<option>Political Organization</option>
+										<option>Primary/Secondary Education</option>
+										<option>Printing</option>
+										<option>Professional Training &amp; Coaching</option>
+										<option>Program Development</option>
+										<option>Public Policy</option>
+										<option>Public Relations &amp; Communications</option>
+										<option>Public Safety</option>
+										<option>Publishing</option>
+										<option>Railroad Manufacture</option>
+										<option>Ranching</option>
+										<option>Real Estate</option>
+										<option>Recreational Facilities &amp; Services</option>
+										<option>Religious Institutions</option>
+										<option>Renewables &amp; Environment</option>
+										<option>Research</option>
+										<option>Restaurants</option>
+										<option>Retail</option>
+										<option>Security &amp; Investigations</option>
+										<option>Semiconductors</option>
+										<option>Shipbuilding</option>
+										<option>Sporting Goods</option>
+										<option>Sports</option>
+										<option>Staffing &amp; Recruiting</option>
+										<option>Supermarkets</option>
+										<option>Telecommunications</option>
+										<option>Textiles</option>
+										<option>Think Tanks</option>
+										<option>Tobacco</option>
+										<option>Translation &amp; Localization</option>
+										<option>Transportation/Trucking/Railroad</option>
+										<option>Utilities</option>
+										<option>Venture Capital &amp; Private Equity</option>
+										<option>Veterinary</option>
+										<option>Warehousing</option>
+										<option>Wholesale</option>
+										<option>Wine &amp; Spirits</option>
+										<option>Wireless</option>
+										<option>Writing &amp; Editing</option>
+									</select>
+
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">Software Proficiency<img src= "{% static "Icons/Lead Generation/down_arrow.png"%}"   id="funding"></a>
+                            </h4>
+							</div>
+							<div id="collapseFour" class="panel-collapse collapse">
+								<div class="panel-body">
+									<input name="softwareProficiency" class="form-control input-sm" placeholder="Microsoft Excel, 3D CAD">
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">Degree Requirements<img src= "{% static "Icons/Lead Generation/down_arrow.png"%}"   id="company-name"></a>
+                            </h4>
+							</div>
+							<div id="collapseFive" class="panel-collapse collapse">
+								<div class="panel-body">
+									<select name="degreeRequirements" class="form-control input-sm">
+										<option value="" selected>Select One</option>
+										<option>High School Diploma</option>
+										<option>Bachelor's Degree</option>
+										<option>Master's Degree</option>
+										<option>Ph.D.</option>
+									</select>
+									<br>
+									<label>Field of Study</label>
+									<input name="degreeField" class="form-control input-sm" placeholder="Mechanical Engineering">
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#spokenLanguage">Spoken Language Reqs.<img src= "{% static "Icons/Lead Generation/down_arrow.png"%}"   id="company-name"></a>
+                            </h4>
+							</div>
+							<div id="spokenLanguage" class="panel-collapse collapse">
+								<div class="panel-body">
+									<p class="helperText">Hold down the "command" key (for Macs) or the "option" key (for PCs) to select multiple languages.</p>
+									<select name="spokenLanguageReq" class="form-control input-sm" multiple>
+										<option>Acholi</option>
+										<option>Afghani</option>
+										<option>Afrikaans</option>
+										<option>Akan</option>
+										<option>Akateco</option>
+										<option>Albanian</option>
+										<option>American Sign Language</option>
+										<option>Amharic</option>
+										<option>Anuak</option>
+										<option>Arabic (Egyptian)</option>
+										<option>Arabic (Iraqi)</option>
+										<option>Arabic (Modern Standard)</option>
+										<option>Arabic (Moroccan)</option>
+										<option>Arabic (Sudanese)</option>
+										<option>Arabic (Yemeni)</option>
+										<option>Armenian</option>
+										<option>Ashanti</option>
+										<option>Assyrian</option>
+										<option>Azeri</option>
+										<option>Bahasa (Malaysian)</option>
+										<option>Bambara</option>
+										<option>Bashkir</option>
+										<option>Basque</option>
+										<option>Bassa</option>
+										<option>Belarusian</option>
+										<option>Bengali</option>
+										<option>Bosnian</option>
+										<option>Bulgarian</option>
+										<option>Burmese</option>
+										<option>Cambodian</option>
+										<option>Cape Verde Creole</option>
+										<option>Catalan</option>
+										<option>Cebuano</option>
+										<option>Chaldean</option>
+										<option>Chamorro</option>
+										<option>Chao-Chow</option>
+										<option>Chin</option>
+										<option>Chin (Falam)</option>
+										<option>Chin (Hakha)</option>
+										<option>Chin (Lai)</option>
+										<option>Chin (Mizo)</option>
+										<option>Chin (Tedim)</option>
+										<option>Chin (Zo, Zomi)</option>
+										<option>Chin (Zophei)</option>
+										<option>Chinese Cantonese</option>
+										<option>Chinese Mandarin</option>
+										<option>Choujo</option>
+										<option>Chuukese</option>
+										<option>Cotocoli (Tem)</option>
+										<option>Croatian</option>
+										<option>Czech</option>
+										<option>Danish</option>
+										<option>Dari</option>
+										<option>Dinka</option>
+										<option>Dioula</option>
+										<option>Dutch</option>
+										<option>Estonian</option>
+										<option>Ewe</option>
+										<option>Farsi</option>
+										<option>Finnish</option>
+										<option>Flemish</option>
+										<option>Foochow (Fuzhou)</option>
+										<option>French</option>
+										<option>French Canadian</option>
+										<option>French Creole</option>
+										<option>Fukienese</option>
+										<option>Fulani</option>
+										<option>Fulde</option>
+										<option>Fuzhou</option>
+										<option>Ga</option>
+										<option>Garre</option>
+										<option>Georgian</option>
+										<option>German</option>
+										<option>Greek</option>
+										<option>Guarani</option>
+										<option>Gujarati</option>
+										<option>Hainanese</option>
+										<option>Haitian Creole</option>
+										<option>Hakka (Chinese)</option>
+										<option>Hassaniya</option>
+										<option>Hausa</option>
+										<option>Hebrew</option>
+										<option>Hindi</option>
+										<option>Hmong</option>
+										<option>Hungarian</option>
+										<option>Icelandic</option>
+										<option>Igbo</option>
+										<option>Ilocano</option>
+										<option>Ilonggo</option>
+										<option>Indonesian</option>
+										<option>Italian</option>
+										<option>Japanese</option>
+										<option>Jarai</option>
+										<option>Jiangsu</option>
+										<option>K’iche’ (Quiché)</option>
+										<option>Kannada</option>
+										<option>Karen</option>
+										<option>Karen (Pwo)</option>
+										<option>Karenni (Kayah)</option>
+										<option>Kazakh</option>
+										<option>Khmer</option>
+										<option>Kikongo</option>
+										<option>Kikuyu</option>
+										<option>Kinyamulenge</option>
+										<option>Kinyarwanda</option>
+										<option>Kirundi</option>
+										<option>Kituba</option>
+										<option>Kizigua (Kizigula)</option>
+										<option>Korean</option>
+										<option>Krahn</option>
+										<option>Krio</option>
+										<option>Kunama</option>
+										<option>Kurdish</option>
+										<option>Kurdish (Bahdini)</option>
+										<option>Kurdish (Kurmanji)</option>
+										<option>Kurdish (Sorani)</option>
+										<option>Kyrgyz</option>
+										<option>Lao</option>
+										<option>Latvian</option>
+										<option>Lautu</option>
+										<option>Lingala</option>
+										<option>Lithuanian</option>
+										<option>Lorma</option>
+										<option>Luganda</option>
+										<option>Luo</option>
+										<option>Maay-Maay</option>
+										<option>Macedonian</option>
+										<option>Malay</option>
+										<option>Malayalam</option>
+										<option>Mam</option>
+										<option>Mandinka</option>
+										<option>Mara</option>
+										<option>Marathi</option>
+										<option>Marshallese</option>
+										<option>Matu</option>
+										<option>Mende</option>
+										<option>Mien</option>
+										<option>Mina</option>
+										<option>Mixteco (Alto)</option>
+										<option>Mixteco (Bajo)</option>
+										<option>Mongolian</option>
+										<option>Montenegrin</option>
+										<option>More</option>
+										<option>Mushunguli</option>
+										<option>Navajo</option>
+										<option>Nepali</option>
+										<option>Norwegian</option>
+										<option>Nuer</option>
+										<option>Oromifa</option>
+										<option>Pashto</option>
+										<option>Patois (Jamaican)</option>
+										<option>Pidgin (Cameroonian)</option>
+										<option>Pidgin (Nigerian)</option>
+										<option>Polish</option>
+										<option>Ponapean/Pohnpeian</option>
+										<option>Portuguese (Brazilian)</option>
+										<option>Portuguese (European)</option>
+										<option>Portuguese Creole</option>
+										<option>Pulaar</option>
+										<option>Punjabi</option>
+										<option>Q'anjob'al</option>
+										<option>Romanian</option>
+										<option>Russian</option>
+										<option>Samoan</option>
+										<option>Senthang</option>
+										<option>Serbian</option>
+										<option>Shanghainese</option>
+										<option>Shona</option>
+										<option>Sichuan</option>
+										<option>Sicilian</option>
+										<option>Sinhalese</option>
+										<option>Siyin</option>
+										<option>Slovak</option>
+										<option>Slovene</option>
+										<option>Somali</option>
+										<option>Somali Bantu</option>
+										<option>Soninke</option>
+										<option>Soninke (Sarahuli)</option>
+										<option>Soninke (Sarakhole)</option>
+										<option>Soranî (Kurdish)</option>
+										<option>Sousou</option>
+										<option>Spanish</option>
+										<option>Swahili</option>
+										<option>Swedish</option>
+										<option>Sylheti</option>
+										<option>Tagalog (Filipino)</option>
+										<option>Taiwanese</option>
+										<option>Tajik</option>
+										<option>Tamil</option>
+										<option>Telugu</option>
+										<option>Teochew</option>
+										<option>Thai</option>
+										<option>Tibetan</option>
+										<option>Tigrinya</option>
+										<option>Toisanese</option>
+										<option>Tongan</option>
+										<option>Tosk</option>
+										<option>Trukese/Chuukese</option>
+										<option>Turkish</option>
+										<option>Twi</option>
+										<option>Ukrainian</option>
+										<option>Urdu</option>
+										<option>Uzbek</option>
+										<option>Vietnamese</option>
+										<option>Visayan</option>
+										<option>Wolof</option>
+										<option>Xhosa</option>
+										<option>Yiddish</option>
+										<option>Yoruba</option>
+										<option>Yup'ik</option>
+										<option>Zulu</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#compLanguage">Computer Language Reqs.<img src= "{% static "Icons/Lead Generation/down_arrow.png"%}"   id="company-name"></a>
+                            </h4>
+							</div>
+							<div id="compLanguage" class="panel-collapse collapse">
+								<div class="panel-body">
+
+									<input name="compLanguage" class="form-control input-sm" placeholder="HTML, CSS, Python">
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">Interests<img src= "{% static "Icons/Lead Generation/down_arrow.png"%}"   id="interest-search"></a>
+                            </h4>
+							</div>
+							<div id="collapseSeven" class="panel-collapse collapse">
+								<div class="panel-body">
+									<input name="personal_interests" class="form-control input-sm" placeholder="Football, Bicycling, etc.">
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">Bonuses<img src= "{% static "Icons/Lead Generation/down_arrow.png"%}"   id="job-title"></a>
+                            </h4>
+							</div>
+							<div id="collapseSix" class="panel-collapse collapse">
+								<div class="panel-body">
+									<label>Software Proficiency</label>
+									<input id="q" name="bonus" class="form-control input-sm" type="text" placeholder="Photoshop, MATLAB, Bloomberg" autocomplete="off">
+									<br>
+									<label>Former Industry Experience</label>
+									<select name="bonusIndustryType" class="form-control input-sm">
+										<option value="" selected>Select One</option>
+										<option>Accounting</option>
+										<option>Airlines/Aviation</option>
+										<option>Alternative Dispute Resolution</option>
+										<option>Alternative Medicine</option>
+										<option>Animation</option>
+										<option>Apparel &amp; Fashion</option>
+										<option>Architecture &amp; Planning</option>
+										<option>Arts &amp; Crafts</option>
+										<option>Automotive</option>
+										<option>Aviation &amp; Aerospace</option>
+										<option>Banking</option>
+										<option>Biotechnology</option>
+										<option>Broadcast Media</option>
+										<option>Building Materials</option>
+										<option>Business Supplies &amp; Equipment</option>
+										<option>Capital Markets</option>
+										<option>Chemicals</option>
+										<option>Civic &amp; Social Organization</option>
+										<option>Civil Engineering</option>
+										<option>Commercial Real Estate</option>
+										<option>Computer &amp; Network Security</option>
+										<option>Computer Games</option>
+										<option>Computer Hardware</option>
+										<option>Computer Networking</option>
+										<option>Computer Software</option>
+										<option>Construction</option>
+										<option>Consumer Electronics</option>
+										<option>Consumer Goods</option>
+										<option>Consumer Services</option>
+										<option>Cosmetics</option>
+										<option>Dairy</option>
+										<option>Defense &amp; Space</option>
+										<option>Design</option>
+										<option>Education Management</option>
+										<option>E-Learning</option>
+										<option>Electrical/Electronic Manufacturing</option>
+										<option>Entertainment</option>
+										<option>Environmental Services</option>
+										<option>Events Services</option>
+										<option>Executive Office</option>
+										<option>Facilities Services</option>
+										<option>Farming</option>
+										<option>Financial Services</option>
+										<option>Fine Art</option>
+										<option>Fishery</option>
+										<option>Food &amp; Beverages</option>
+										<option>Food Production</option>
+										<option>Fund-Raising</option>
+										<option>Furniture</option>
+										<option>Gambling &amp; Casinos</option>
+										<option>Glass, Ceramics &amp; Concrete</option>
+										<option>Government Administration</option>
+										<option>Government Relations</option>
+										<option>Graphic Design</option>
+										<option>Health, Wellness &amp; Fitness</option>
+										<option>Higher Education</option>
+										<option>Hospital &amp; Health Care</option>
+										<option>Hospitality</option>
+										<option>Human Resources</option>
+										<option>Import &amp; Export</option>
+										<option>Individual &amp; Family Services</option>
+										<option>Industrial Automation</option>
+										<option>Information Services</option>
+										<option>Information Technology &amp; Services</option>
+										<option>Insurance</option>
+										<option>International Affairs</option>
+										<option>International Trade &amp; Development</option>
+										<option>Internet</option>
+										<option>Investment Banking</option>
+										<option>Investment Management</option>
+										<option>Judiciary</option>
+										<option>Law Enforcement</option>
+										<option>Law Practice</option>
+										<option>Legal Services</option>
+										<option>Legislative Office</option>
+										<option>Leisure, Travel &amp; Tourism</option>
+										<option>Libraries</option>
+										<option>Logistics &amp; Supply Chain</option>
+										<option>Luxury Goods &amp; Jewelry</option>
+										<option>Machinery</option>
+										<option>Management Consulting</option>
+										<option>Maritime</option>
+										<option>Market Research</option>
+										<option>Marketing &amp; Advertising</option>
+										<option>Mechanical or Industrial Engineering</option>
+										<option>Media Production</option>
+										<option>Medical Devices</option>
+										<option>Medical Practice</option>
+										<option>Mental Health Care</option>
+										<option>Military</option>
+										<option>Mining &amp; Metals</option>
+										<option>Motion Pictures &amp; Film</option>
+										<option>Museums &amp; Institutions</option>
+										<option>Music</option>
+										<option>Nanotechnology</option>
+										<option>Newspapers</option>
+										<option>Non-Profit Organization Management</option>
+										<option>Oil &amp; Energy</option>
+										<option>Online Media</option>
+										<option>Outsourcing/Offshoring</option>
+										<option>Package/Freight Delivery</option>
+										<option>Packaging &amp; Containers</option>
+										<option>Paper &amp; Forest Products</option>
+										<option>Performing Arts</option>
+										<option>Pharmaceuticals</option>
+										<option>Philanthropy</option>
+										<option>Photography</option>
+										<option>Plastics</option>
+										<option>Political Organization</option>
+										<option>Primary/Secondary Education</option>
+										<option>Printing</option>
+										<option>Professional Training &amp; Coaching</option>
+										<option>Program Development</option>
+										<option>Public Policy</option>
+										<option>Public Relations &amp; Communications</option>
+										<option>Public Safety</option>
+										<option>Publishing</option>
+										<option>Railroad Manufacture</option>
+										<option>Ranching</option>
+										<option>Real Estate</option>
+										<option>Recreational Facilities &amp; Services</option>
+										<option>Religious Institutions</option>
+										<option>Renewables &amp; Environment</option>
+										<option>Research</option>
+										<option>Restaurants</option>
+										<option>Retail</option>
+										<option>Security &amp; Investigations</option>
+										<option>Semiconductors</option>
+										<option>Shipbuilding</option>
+										<option>Sporting Goods</option>
+										<option>Sports</option>
+										<option>Staffing &amp; Recruiting</option>
+										<option>Supermarkets</option>
+										<option>Telecommunications</option>
+										<option>Textiles</option>
+										<option>Think Tanks</option>
+										<option>Tobacco</option>
+										<option>Translation &amp; Localization</option>
+										<option>Transportation/Trucking/Railroad</option>
+										<option>Utilities</option>
+										<option>Venture Capital &amp; Private Equity</option>
+										<option>Veterinary</option>
+										<option>Warehousing</option>
+										<option>Wholesale</option>
+										<option>Wine &amp; Spirits</option>
+										<option>Wireless</option>
+										<option>Writing &amp; Editing</option>
+									</select>
+
+
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<button type="submit" id="generate-leads-btn" class="btn-lead-search">Search</button>
+							</div>
+						</div>
+					</div>
+					<!-- accordian -->
+					<div class="panel panel-default" id="history">History
+						<div class="lead_history">
+							<span id="history_name">Sinan Ozdemir</span> 
+							<br>
+							<span id="history_location">Location: Baltimore</span> 
+							<br>
+							<span id="history_age">Age: 18 - 40</span> 
+							<br>
+							<span id="history_position">Position: CTO</span> 
+							<br>
+							<span id="history_interests">Interests: Python, C++</span>
+						</div>
+
+					</div>
+				</form>
+			</div>
+
+
+			<!--This is where all the leads will populate in the grid-->
+			<div class="col-md-8" id="grid-pop">
+
+				<div class="col-lg-12">
+					<div class="panel">
+						<div class="panel-heading">
+
+							<!-- /.panel-heading -->
+							<form method="POST"> {% csrf_token %}
+								<div class="panel-body" id="panel-id-tag">
+									<div class="table-responsive" id="table-tag">
+										<table class="table table-hover" id="dataTables-example">
+											<thead>
+												<tr>
+													<th>
+														<input type="checkbox" id="test1" name="export_all" />
+														<label for="test1"></label>Full Name</th>
+													<th><img src="{% static "Icons/Lead%20Completion/4_signal_blue.png"%}" class="signal-image">
+														<img src="{% static "Icons/Lead Generation/arrows.png"%}" class="success-image">
+													</th>
+													<th>Email
+														<img src="{% static "Icons/Lead Generation/arrows.png"  %}"class="success-image">
+													</th>
+													<th>Twitter
+														<img src="{% static "Icons/Lead Generation/arrows.png" %}" class="success-image">
+													</th>
+													<th>LinkedIn
+														<img src="{% static "Icons/Lead Generation/arrows.png" %}" class="success-image">
+													</th>
+												</tr>
+											</thead>
+
+											<tbody id="lead-gen-table">
+
+												{% for search_result in search_results %}
+						<tr class="even gradeC">
+							<td>
+								<input type="checkbox" onchange="checkboxes()" id="test_{{search_result.person.id}}" name="checks" value="{{search_result.person.id}}" />
+								
+								<label for="test_{{search_result.person.id}}"></label>{{search_result.person.name}}</td>
+							<td><p class="invisible-rating">{{search_result.strength}}</p><img src="https://s3-us-west-2.amazonaws.com/tier5/tier5beta/static/Icons/Lead+Completion/{{search_result.strength}}_signal_blue.png" class="signal-image"></td>
+							<td>
+								{% if search_result.person.email|length %}
+								<img src="{% static "Icons/Lead Generation/success_icon.png" %}" class="success-icon">
+								{% endif %}
+							</td>
+
+							<td>
+								{% if search_result.person.personal_twitter|length %}
+								<img src="{% static "Icons/Lead Generation/success_icon.png" %}" class="success-icon" />
+								{% endif %}
+							</td>
+
+							<td>
+								{% if search_result.person.personal_linkedin|length %}
+								<img src="{% static "Icons/Lead Generation/success_icon.png" %}" class="success-icon" />
+								{% endif %}	
+							</td>
+
+
+						</tr>
+
+												{% endfor %}
+
+											</tbody>
+										</table>
+
+									</div>
+									<!-- /.table-responsive -->
+
+								</div>
+								<!-- /.panel-body -->
+						</div>
+					</div>
+					<!-- /.panel -->
+				</div>
+				<!-- /.col-lg-12 -->
+
+
+			</div>
+
+
+
+
+
+
+
+
+			<!--Download leads-->
+			<div id="download-lead-container">
+					<button name="export" class="btn-none bottomRight" id="download-button">
+						<img src="{% static "Icons/Lead Completion/Download.png" %}" id="download-icon">
+						<br>
+						<div class="text-center" id="download-leads-text">Download
+							<br>Leads</div>
+					</button>
+				</form>
+			</div>
+			<!--End Download Leads-->
+
+
+
+
+
+
+
+		</div>
+	</div>
+
+
+
+
+
+	<!-- /.row -->
+
+
+	<!-- /.container -->
+
+	<!-- jQuery Version 1.11.1 -->
+	<script src="{% static "js/jquery.js"%}"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src=" {% static "js/bootstrap.min.js" %}"></script>
+	<!-- DataTables JavaScript -->
+	<script src="{% static "js/plugins/dataTables/jquery.dataTables.js" %}">
+	</script>
+	<script src=" {% static "js/plugins/dataTables/dataTables.bootstrap.js" %}"></script>
+
+</body>
+
+</html>
+<script>
+	$(document).ready(function () {
+		$('#dataTables-example').dataTable({
+			bFilter: false
+		});
+	});
+	/*  $(function () {
+        // Remove Search if user Resets Form or hits Escape!
+        $('body, .navbar-collapse form[role="search"] button[type="reset"]').on('click keyup', function(event) {
+            console.log(event.currentTarget);
+            if (event.which == 27 andand $('.navbar-collapse form[role="search"]').hasClass('active') ||
+                $(event.currentTarget).attr('type') == 'reset') {
+                closeSearch();
+            }
+        });
+
+        function closeSearch() {
+            var $form = $('.navbar-collapse form[role="search"].active')
+            $form.find('input').val('');
+            $form.removeClass('active');
+        }
+
+        // Show Search if form is not active // event.preventDefault() is important, this prevents the form from submitting
+        $(document).on('click', '.navbar-collapse form[role="search"]:not(.active) button[type="submit"]', function(event) {
+            event.preventDefault();
+            var $form = $(this).closest('form'),
+                $input = $form.find('input');
+            $form.addClass('active');
+            $input.focus();
+
+        });
+        // ONLY FOR DEMO // Please use $('form').submit(function(event)) to track from submission
+        // if your form is ajax remember to call `closeSearch()` to close the search container
+        $(document).on('click', '.navbar-collapse form[role="search"].active button[type="submit"]', function(event) {
+            event.preventDefault();
+            var $form = $(this).closest('form'),
+                $input = $form.find('input');
+            $('#showSearchTerm').text($input.val());
+            closeSearch()
+        });
+    });*/
+</script>
