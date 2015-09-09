@@ -9,10 +9,8 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Deleting model 'Info'
-        db.delete_table(u'legion_info')
 
         # Removing M2M table for field source on 'Info'
-        db.delete_table(db.shorten_name(u'legion_info_source'))
 
         # Adding model 'EmailAddress'
         db.create_table(u'legion_emailaddress', (
@@ -37,26 +35,9 @@ class Migration(SchemaMigration):
 
     def backwards(self, orm):
         # Adding model 'Info'
-        db.create_table(u'legion_info', (
-            ('information', self.gf('django.db.models.fields.CharField')(default=None, max_length=100, null=True, blank=True)),
-            ('is_current', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('person', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legion.Person'], null=True, blank=True)),
-            ('last_updated', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2015, 3, 22, 0, 0), null=True, blank=True)),
-            ('company', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['legion.Company'], null=True, blank=True)),
-            ('type_of_info', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-        ))
-        db.send_create_signal(u'legion', ['Info'])
 
         # Adding M2M table for field source on 'Info'
-        m2m_table_name = db.shorten_name(u'legion_info_source')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('info', models.ForeignKey(orm[u'legion.info'], null=False)),
-            ('website', models.ForeignKey(orm[u'legion.website'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['info_id', 'website_id'])
-
+       
         # Deleting model 'EmailAddress'
         db.delete_table(u'legion_emailaddress')
 
