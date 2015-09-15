@@ -147,7 +147,7 @@ def my_account(request):
     my_account_info = {}
     if request.method == "POST":
         if 'twitter' in request.POST:
-            auth = tweepy.OAuthHandler('Ftp4IDSOcPJaCdTlxblRMPW05', '6AIiTKoVC3hChn81o1pRgOlokS0sN8NsQS39TZvLyig8QE1G4k')
+            auth = tweepy.OAuthHandler('3IVlaNBLG2G0AVdfzhZxOleVA', 'pgE7QEoWd8RDAhpYVpDXgoHjqRsA6wjG8a7fbhijRXQ2oMoivO')
             redirect_url = auth.get_authorization_url()
             request.session['oauth_token'] = auth.request_token
             return HttpResponseRedirect(redirect_url)
