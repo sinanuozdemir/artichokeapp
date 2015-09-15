@@ -500,8 +500,7 @@ def analyzeFollowers(user_id):
 
 def getUserTwitterAPI(user):
 	try:
-		# ADDDD change these twitter creds
-		auth = tweepy.OAuthHandler('Ftp4IDSOcPJaCdTlxblRMPW05', '6AIiTKoVC3hChn81o1pRgOlokS0sN8NsQS39TZvLyig8QE1G4k')
+		auth = tweepy.OAuthHandler('3IVlaNBLG2G0AVdfzhZxOleVA', 'pgE7QEoWd8RDAhpYVpDXgoHjqRsA6wjG8a7fbhijRXQ2oMoivO')
 		if not user.twitter_access_token_key:
 			return None
 		auth.set_access_token(user.twitter_access_token_key, user.twitter_access_token_secret)

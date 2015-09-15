@@ -4,26 +4,25 @@ from models import User, statsSnapshot, Competitor, keyWord, twitterStats, twitt
 from django.core import serializers
 from django.db.models import Q
 
-
 class ImpersonateMiddleware(object):
     def process_request(self, request):
         if "__impersonate" in request.GET:
             request.user = User.objects.get(email=request.GET['__impersonate'])
+            request.session['impersonate_id'] = request.user.id
             for i in ['last_checked_for_inbound', 'total_people', 'last_inbound_query', 'inbound_stats', 'last_checked_for_inbound', '30']:
                 try:
                     del request.session[i]
                 except:
                     pass
         elif "__unimpersonate" in request.GET:
-            try:
-                del request.session['last_checked_for_inbound']
-            except:
-                pass
-            try:
-                del request.session['impersonate_id']
-            except:
-                pass
+            for i in ['impersonate_id', 'last_checked_for_inbound', 'total_people', 'last_inbound_query', 'inbound_stats', 'last_checked_for_inbound', '30']:
+                try:
+                    del request.session[i]
+                except:
+                    pass
             request.user = User.objects.get(id=request.session['saved_id'])
+        elif 'impersonate_id' in request.session:
+            request.user = User.objects.get(id=request.session['impersonate_id'])
 
 
 def process_dt(d):

@@ -111,8 +111,7 @@ def twitterAuth(request):
     if request.GET.get('denied', None):
         return HttpResponseRedirect('/legion/lead_stream')
     verifier = request.GET.get('oauth_verifier')
-    # ADDDD change these twitter creds
-    auth = tweepy.OAuthHandler('Ftp4IDSOcPJaCdTlxblRMPW05', '6AIiTKoVC3hChn81o1pRgOlokS0sN8NsQS39TZvLyig8QE1G4k')
+    auth = tweepy.OAuthHandler('3IVlaNBLG2G0AVdfzhZxOleVA', 'pgE7QEoWd8RDAhpYVpDXgoHjqRsA6wjG8a7fbhijRXQ2oMoivO')
     auth.request_token = request.session['oauth_token']
     auth.get_access_token(verifier)
     user = request.user
