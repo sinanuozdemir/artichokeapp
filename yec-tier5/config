@@ -1,4 +1,0 @@
-Host github.com
-  HostName github.com
-  User sinanuozdemir
-  IdentityFile ~/.ssh/id_rsa

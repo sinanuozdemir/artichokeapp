@@ -1,6 +1,0 @@
-web: gunicorn tier5beta.wsgi --log-file -
-email_worker: celery -A tier5beta worker --app=tier5beta.celery_app:app --loglevel=info -Q default --concurrency=1 --without-gossip --without-mingle --without-heartbeat
-twitter_worker: celery -A tier5beta worker --app=tier5beta.celery_app:app --loglevel=info -Q for_twitter --concurrency=1 --without-gossip --without-mingle --without-heartbeat
-send_emails: celery -A tier5beta worker --app=tier5beta.celery_app:app --loglevel=info -Q send_emails --concurrency=1 --without-gossip --without-mingle --without-heartbeat
-periodic_tasks: celery -A tier5beta worker --app=tier5beta.celery_app:app --loglevel=info
-beat: celery -A tier5beta beat
